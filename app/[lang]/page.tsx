@@ -12,6 +12,7 @@ import PageBackground from "@/components/PageBackground";
 import ProjectsGallery from "@/components/ProjectsGallery";
 import ScrollJourney from "@/components/ScrollJourney";
 import ServicesBento from "@/components/ServicesBento";
+import { site } from "@/data/site";
 import { hasLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
@@ -19,9 +20,33 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
+  const origin = `https://${site.domain}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${origin}/#organization`,
+        name: site.name,
+        url: origin,
+        logo: `${origin}/images/isotipo-nfory.svg`,
+        email: site.contactEmail,
+        description: dict.meta.description,
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${origin}/#website`,
+        url: `${origin}/${lang}`,
+        name: site.name,
+        inLanguage: lang,
+        publisher: { "@id": `${origin}/#organization` },
+      },
+    ],
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <PageBackground />
 
       <Navbar locale={lang} t={dict.nav} />
