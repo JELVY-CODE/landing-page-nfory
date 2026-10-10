@@ -10,7 +10,7 @@ export default function JourneyNode({ index }: { index: string }) {
       <span
         className={
           "relative flex size-12 items-center justify-center rounded-full border bg-zinc-950 font-mono text-xs " +
-          "border-white/10 text-zinc-500 transition-[border-color,color,box-shadow,scale] duration-500 ease-out-strong scale-90 " +
+          "border-white/10 text-[#8B8B94] transition-[border-color,color,box-shadow,scale] duration-500 ease-out-strong scale-90 " +
           "group-data-[active=true]/node:scale-100 group-data-[active=true]/node:border-violet-500/70 group-data-[active=true]/node:text-white " +
           "group-data-[active=true]/node:shadow-[0_0_0_6px_rgb(139_92_246/0.1),0_0_32px_-4px_rgb(139_92_246/0.7)] " +
           "motion-reduce:scale-100"

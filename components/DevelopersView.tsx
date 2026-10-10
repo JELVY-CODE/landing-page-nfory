@@ -32,7 +32,7 @@ export default function DevelopersView({ locale, t }: { locale: Locale; t: Dicti
             data-active="false"
             aria-hidden="true"
             className={
-              "absolute -top-4 -left-14 hidden size-12 -translate-x-1/2 items-center justify-center rounded-full border border-white/10 bg-zinc-950 font-mono text-xs text-zinc-500 " +
+              "absolute -top-4 -left-14 hidden size-12 -translate-x-1/2 items-center justify-center rounded-full border border-white/10 bg-zinc-950 font-mono text-xs text-[#8B8B94] " +
               "transition-[border-color,color,box-shadow,scale] duration-500 ease-out-strong lg:flex " +
               "data-[active=true]:border-violet-500/70 data-[active=true]:text-white data-[active=true]:shadow-[0_0_0_6px_rgb(139_92_246/0.1),0_0_32px_-4px_rgb(139_92_246/0.7)]"
             }
