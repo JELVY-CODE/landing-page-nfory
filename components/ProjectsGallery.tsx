@@ -23,7 +23,7 @@ export default function ProjectsGallery({ locale, t }: { locale: Locale; t: Dict
         </div>
       </div>
 
-      <div className="mt-14 space-y-4">
+      <div className="mt-12 space-y-4">
         {galleryRows.map((row, index) => (
           <MarqueeRow
             key={index}
@@ -31,7 +31,7 @@ export default function ProjectsGallery({ locale, t }: { locale: Locale; t: Dict
             labels={{ region: t.row.replace("{n}", String(index + 1)), carousel: t.carousel, previous: t.previous, next: t.next }}
           >
             {row.map((item) => (
-              <GalleryCard key={item.id} item={item} locale={locale} emptyLabel={t.emptyCard} />
+              <GalleryCard key={item.id} item={item} locale={locale} badge={t.badge} />
             ))}
           </MarqueeRow>
         ))}

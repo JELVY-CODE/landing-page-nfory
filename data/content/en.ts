@@ -5,7 +5,6 @@ const en: Dictionary = {
     title: "NFory | AI Engineering & Process Automation",
     description:
       "NFory is a consultancy that designs and integrates AI agents, custom systems and process orchestration to connect your company's operations.",
-    ogTitle: "NFory | The autonomous core of your business",
     ogDescription: "AI engineering and process automation consultancy: proprietary SaaS and B2B consulting.",
   },
   nav: {
@@ -32,24 +31,25 @@ const en: Dictionary = {
   },
   about: {
     eyebrow: "About us",
-    title: "We connect the systems that already run your business",
+    title: "We design the intelligent infrastructure that connects your company's future",
     paragraphs: [
-      "NFory is an engineering consultancy specialized in artificial intelligence and process automation. We start from a simple idea: every company already works as a network of people, tools, data and processes, but its nodes rarely talk to each other.",
-      "Our job is to connect them. Every node in our brand represents that connection: the network that already exists and unites us all, finally working as a single system.",
+      "NFory is a consultancy specialized in artificial intelligence architecture and enterprise process automation.",
+      "We start from an operational premise: your company is already an interconnected network of people, tools, data and workflows; yet in most organizations, those nodes operate in isolation.",
+      "Our purpose is to articulate and strengthen that network. Every node in our identity represents a strategic integration: we turn fragmented systems into an autonomous, coherent, high-performance ecosystem.",
     ],
     connections: [
-      { title: "Integrate AI", description: "We bring artificial intelligence to the points of your operation where it creates real value." },
-      { title: "Build product", description: "We develop our own software when existing tools don't solve the problem." },
-      { title: "Improve processes", description: "We redesign the workflows that slow teams down before automating them." },
-      { title: "Automate operations", description: "We make repetitive work flow on its own, with traceability at every step." },
+      { title: "Strategic AI Integration", description: "We deploy artificial intelligence models at the critical points of your operation to drive direct impact on productivity and on the bottom line." },
+      { title: "Proprietary Software Development", description: "We design and build robust, scalable platforms when off-the-shelf solutions limit your business growth." },
+      { title: "Process Reengineering", description: "We audit and optimize workflows before automating them, removing bottlenecks to ensure efficient operations." },
+      { title: "Orchestration & Automation", description: "We remove the friction of repetitive work through automated pipelines with full traceability, observability and real-time control." },
     ],
     mission: {
       label: "Mission",
-      text: "To connect each company's systems, data and people through artificial intelligence, proprietary products and automation, so its operation works as a single network: coordinated, measurable and ready to grow.",
+      text: "To orchestrate the digital transformation of companies through artificial intelligence, software architecture and advanced automation, turning fragmented operations into a coordinated, efficient, measurable network ready to scale.",
     },
     vision: {
       label: "Vision",
-      text: "To be the leading consultancy connecting organizations with artificial intelligence: an ecosystem where every company, every process and every person is a connected node in a network that grows stronger with each new connection.",
+      text: "To become the global reference consultancy in AI integration and autonomous systems, building an ecosystem where every organization, process and team works as a connected node within a high-performance technology network.",
     },
   },
   services: {
@@ -128,9 +128,9 @@ const en: Dictionary = {
   },
   projects: {
     eyebrow: "Projects",
-    title: "Our work",
-    subtitle: "A selection of NFory projects and case studies.",
-    emptyCard: "Project coming soon",
+    title: "What we can build for you",
+    subtitle: "Reference use cases we design and implement. They are illustrative examples of our capabilities, not projects delivered to clients.",
+    badge: "Use case",
     row: "Projects, row {n}",
     carousel: "carousel",
     previous: "Previous",
@@ -210,7 +210,6 @@ const en: Dictionary = {
     membersEyebrow: "Members",
     membersTitle: "Our developers",
     membersSubtitle: "Engineers and consultants who design, build and integrate every solution.",
-    memberEmpty: "Member coming soon",
     agentsEyebrow: "AI agents",
     agentsTitle: "The AI models we use",
     agentsSubtitle: "We work with Anthropic language models, both in the agents we integrate for our clients and in our own software development.",

@@ -5,15 +5,29 @@ export type TeamMember = {
   id: string;
   name: string;
   role: LocalizedText;
-  /** Ruta en /public/images/. Vacío = avatar de marcador. */
-  photo: string;
+  /** Ruta en /public/images/. Sin foto se muestra un avatar con sus iniciales. */
+  photo?: string;
   linkedin?: string;
   github?: string;
 };
 
-const emptyMember = (id: string): TeamMember => ({ id, name: "", role: {}, photo: "" });
-
-export const teamMembers: TeamMember[] = ["m1", "m2", "m3", "m4"].map(emptyMember);
+// Solo personas reales: añade cada integrante con su cargo y sus perfiles verificados.
+export const teamMembers: TeamMember[] = [
+  {
+    id: "jesus-lizarraga",
+    name: "Jesús Lizárraga",
+    role: {
+      es: "CEO & Co-Founder",
+      en: "CEO & Co-Founder",
+      ko: "CEO & 공동 창업자",
+      ja: "CEO & 共同創業者",
+      zh: "CEO & 联合创始人",
+      de: "CEO & Mitgründer",
+      ru: "CEO и сооснователь",
+    },
+    github: "https://github.com/JELVY-CODE",
+  },
+];
 
 export type AiModel = {
   id: string;

@@ -28,6 +28,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     metadataBase: new URL("https://nfory.com"),
     title: meta.title,
     description: meta.description,
+    applicationName: "NFory",
+    authors: [{ name: "NFory", url: "https://nfory.com" }],
+    keywords: ["NFory", "inteligencia artificial", "AI engineering", "automatización de procesos", "process automation", "RAG", "agentes de IA", "AI agents", "consultoría"],
     alternates: {
       canonical: `/${lang}`,
       languages: Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}`])),
@@ -36,13 +39,20 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       icon: "/images/isotipo-nfory.svg",
       apple: "/images/isotipo-nfory.svg",
     },
+    // La imagen la generan opengraph-image.tsx y twitter-image.tsx de esta misma ruta.
     openGraph: {
-      title: meta.ogTitle,
+      title: meta.title,
       description: meta.ogDescription,
       url: `https://nfory.com/${lang}`,
       siteName: "NFory",
       locale: OG_LOCALES[lang],
+      alternateLocale: LOCALES.filter((locale) => locale !== lang).map((locale) => OG_LOCALES[locale]),
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.ogDescription,
     },
   };
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+import ModuleIndex, { type ModuleLink } from "@/components/ModuleIndex";
 
 const HASH = "#desarrolladores";
 const DURATION_MS = 1400;
@@ -27,9 +28,10 @@ type DevelopersTransitionProps = {
   children: ReactNode;
   view: ReactNode;
   labels: { open: string; back: string };
+  modules: ModuleLink[];
 };
 
-export default function DevelopersTransition({ children, view, labels }: DevelopersTransitionProps) {
+export default function DevelopersTransition({ children, view, labels, modules }: DevelopersTransitionProps) {
   const open = useSyncExternalStore(subscribe, isOpen, () => false);
   const pageRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -97,13 +99,23 @@ export default function DevelopersTransition({ children, view, labels }: Develop
         frameId = requestAnimationFrame(frame);
         return;
       }
+      finish();
+    };
+
+    const finish = () => {
+      window.clearTimeout(safety);
       if (node) node.dataset.active = String(open);
       if (!open) panel.style.visibility = "hidden";
       svg.style.opacity = "0";
     };
+    // Si los fotogramas se detienen (p. ej. pestaña en segundo plano), se garantiza el estado final.
+    const safety = window.setTimeout(finish, DURATION_MS + 200);
     frameId = requestAnimationFrame(frame);
 
-    return () => cancelAnimationFrame(frameId);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.clearTimeout(safety);
+    };
   }, [open]);
 
   useEffect(() => () => void (document.documentElement.style.overflow = ""), []);
@@ -166,24 +178,7 @@ export default function DevelopersTransition({ children, view, labels }: Develop
         <circle ref={pulseRef} r="5" fill="#F5F3FF" filter="url(#developers-glow)" />
       </svg>
 
-      {!open && (
-        <button
-          type="button"
-          onClick={openView}
-          aria-label={labels.open}
-          className={
-            "group/dev fixed top-1/2 right-5 z-30 hidden -translate-y-1/2 items-center gap-3 lg:flex " +
-            "focus-visible:outline-none"
-          }
-        >
-          <span className="pointer-events-none translate-x-2 rounded-full border border-white/10 bg-zinc-950/80 px-3 py-1 font-mono text-[11px] tracking-wide text-zinc-300 uppercase opacity-0 backdrop-blur-md transition-[opacity,translate] duration-200 ease-out-strong group-hover/dev:translate-x-0 group-hover/dev:opacity-100 group-focus-visible/dev:translate-x-0 group-focus-visible/dev:opacity-100">
-            {labels.open}
-          </span>
-          <span className="flex size-12 items-center justify-center rounded-full border border-violet-500/40 bg-zinc-950 font-mono text-xs text-violet-200 shadow-[0_0_24px_-6px_rgb(139_92_246/0.8)] transition-[border-color,scale,box-shadow] duration-200 ease-out-strong group-hover/dev:scale-105 group-hover/dev:border-violet-400 group-active/dev:scale-95 group-focus-visible/dev:ring-2 group-focus-visible/dev:ring-violet-500">
-            00
-          </span>
-        </button>
-      )}
+      <ModuleIndex modules={modules} developers={{ label: labels.open, onOpen: openView }} hidden={open} />
     </>
   );
 }

@@ -28,6 +28,12 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <DevelopersTransition
         view={<DevelopersView locale={lang} t={dict.team} />}
         labels={{ open: dict.nav.team, back: dict.team.back }}
+        modules={[
+          { index: "01", label: dict.nav.about, href: "#nosotros" },
+          { index: "02", label: dict.nav.services, href: "#servicios" },
+          { index: "03", label: dict.nav.projects, href: "#proyectos" },
+          { index: "04", label: dict.nav.contact, href: "#contacto" },
+        ]}
       >
         <main className="relative">
           <Hero t={dict.hero} cta={dict.nav.cta} />

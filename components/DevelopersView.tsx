@@ -9,7 +9,18 @@ import type { Dictionary } from "@/lib/i18n/dictionaries";
 const card = "rounded-2xl border border-white/[0.08] bg-zinc-900/40 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.06)] backdrop-blur-xl";
 const eyebrow = "font-mono text-xs tracking-wide text-indigo-400 uppercase";
 const subheading = "mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl";
-const bar = "block rounded-full bg-white/[0.06]";
+const NETWORKS = [
+  { id: "linkedin", name: "LinkedIn" },
+  { id: "github", name: "GitHub" },
+] as const;
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
 // Contenido de la vista "Desarrolladores" (nodo 00), que <DevelopersTransition /> muestra como una página aparte.
 export default function DevelopersView({ locale, t }: { locale: Locale; t: Dictionary["team"] }) {
@@ -39,55 +50,40 @@ export default function DevelopersView({ locale, t }: { locale: Locale; t: Dicti
           <h3 className={subheading}>{t.membersTitle}</h3>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{t.membersSubtitle}</p>
 
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {teamMembers.map((member) => {
-              const role = localize(member.role, locale);
-              return (
-                <li key={member.id} aria-label={member.name || t.memberEmpty} className={`${card} p-6`}>
-                  <div className="relative size-20 overflow-hidden rounded-full border border-white/10 bg-zinc-900">
-                    {member.photo ? (
-                      <Image src={member.photo} alt={member.name} fill sizes="5rem" className="object-cover" />
-                    ) : (
-                      <svg aria-hidden="true" viewBox="0 0 24 24" className="absolute inset-0 m-auto size-9 text-zinc-700" fill="currentColor">
-                        <path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.4 0-8 2.2-8 5v1.5h16V19c0-2.8-3.6-5-8-5Z" />
-                      </svg>
-                    )}
-                  </div>
-                  {member.name ? (
-                    <p className="mt-5 text-lg font-semibold tracking-tight text-white">{member.name}</p>
-                  ) : (
-                    <span aria-hidden="true" className={`${bar} mt-6 h-4 w-2/3`} />
-                  )}
-                  {role ? <p className="mt-1 text-sm text-zinc-400">{role}</p> : <span aria-hidden="true" className={`${bar} mt-3 h-2.5 w-1/2`} />}
-                  <div className="mt-5 flex gap-1">
-                    {(["linkedin", "github"] as const).map((network) => {
-                      const href = member[network];
-                      const icon = (
-                        <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="currentColor">
-                          {SOCIAL_ICONS[network]}
-                        </svg>
-                      );
-                      return href ? (
-                        <a
-                          key={network}
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`${member.name} · ${network === "linkedin" ? "LinkedIn" : "GitHub"}`}
-                          className="flex size-8 items-center justify-center rounded-full text-zinc-400 transition-colors duration-150 hover:bg-white/[0.06] hover:text-white"
-                        >
-                          {icon}
-                        </a>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {teamMembers.map((member) => (
+                <li key={member.id} className={`${card} flex flex-col p-6`}>
+                  <div className="relative size-20 overflow-hidden rounded-full p-[2px] [background:linear-gradient(135deg,#6366F1,#8B5CF6)] shadow-[0_0_28px_-6px_rgb(139_92_246/0.7)]">
+                    <div className="relative flex size-full items-center justify-center overflow-hidden rounded-full bg-zinc-950">
+                      {member.photo ? (
+                        <Image src={member.photo} alt={member.name} fill sizes="5rem" className="object-cover" />
                       ) : (
-                        <span key={network} className="flex size-8 items-center justify-center rounded-full text-zinc-800">
-                          {icon}
+                        <span aria-hidden="true" className="text-xl font-semibold tracking-tight text-white">
+                          {initials(member.name)}
                         </span>
-                      );
-                    })}
+                      )}
+                    </div>
+                  </div>
+                  <p className="mt-5 text-lg font-semibold tracking-tight text-white">{member.name}</p>
+                  <p className="mt-1 font-mono text-xs tracking-wide text-violet-400 uppercase">{localize(member.role, locale)}</p>
+                  <div className="mt-5 flex gap-1">
+                    {NETWORKS.filter((network) => member[network.id]).map((network) => (
+                      <a
+                        key={network.id}
+                        href={member[network.id]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${member.name} · ${network.name}`}
+                        className="flex size-9 items-center justify-center rounded-full border border-white/10 text-zinc-300 transition-[color,background-color,border-color,scale] duration-150 ease-out-strong hover:border-indigo-400/50 hover:bg-indigo-500/10 hover:text-white active:scale-95"
+                      >
+                        <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="currentColor">
+                          {SOCIAL_ICONS[network.id]}
+                        </svg>
+                      </a>
+                    ))}
                   </div>
                 </li>
-              );
-            })}
+            ))}
           </ul>
         </div>
 

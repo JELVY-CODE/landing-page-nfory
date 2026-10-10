@@ -3,7 +3,6 @@ const es = {
     title: "NFory | Ingeniería de IA & Automatización de Procesos",
     description:
       "NFory es una consultora que diseña e integra agentes de IA, sistemas a medida y orquestación de procesos para conectar la operación de tu empresa.",
-    ogTitle: "NFory | El núcleo autónomo de tu empresa",
     ogDescription: "Consultora de ingeniería de IA y automatización de procesos: SaaS propietario y consultoría B2B.",
   },
   nav: {
@@ -30,24 +29,25 @@ const es = {
   },
   about: {
     eyebrow: "Quiénes somos",
-    title: "Conectamos los sistemas que ya mueven tu empresa",
+    title: "Diseñamos la infraestructura inteligente que conecta el futuro de tu empresa",
     paragraphs: [
-      "NFory es una consultora de ingeniería en inteligencia artificial y automatización de procesos. Partimos de una idea sencilla: toda empresa ya funciona como una red de personas, herramientas, datos y procesos, pero sus nodos rara vez hablan entre sí.",
-      "Nuestro trabajo es conectarlos. Cada nodo de nuestra marca representa esa conexión: la red que ya existe y que nos une a todos, trabajando por fin como un solo sistema.",
+      "NFory es una consultora especializada en arquitectura de inteligencia artificial y automatización de procesos empresariales.",
+      "Partimos de una premisa operativa: tu empresa ya es una red interconectada de personas, herramientas, datos y flujos de trabajo; sin embargo, en la mayoría de las organizaciones, esos nodos operan aislados.",
+      "Nuestro propósito es articular y potenciar esa red. Cada nodo en nuestra identidad representa una integración estratégica: transformamos sistemas fragmentados en un ecosistema autónomo, coherente y de alto rendimiento.",
     ],
     connections: [
-      { title: "Integrar IA", description: "Llevamos la inteligencia artificial a los puntos de la operación donde genera valor real." },
-      { title: "Desarrollar producto", description: "Construimos software propio cuando lo existente no resuelve el problema." },
-      { title: "Mejorar procesos", description: "Rediseñamos los flujos que frenan a los equipos antes de automatizarlos." },
-      { title: "Automatizar operaciones", description: "Hacemos que el trabajo repetitivo fluya solo, con trazabilidad en cada paso." },
+      { title: "Integración Estratégica de IA", description: "Desplegamos modelos de inteligencia artificial en los puntos críticos de tu operación para generar impacto directo en la productividad y en el bottom line." },
+      { title: "Desarrollo de Software Propietario", description: "Diseñamos y construimos plataformas robustas y escalables cuando las soluciones comerciales del mercado limitan el crecimiento de tu negocio." },
+      { title: "Reingeniería de Procesos", description: "Auditamos y optimizamos los flujos de trabajo antes de automatizarlos, eliminando cuellos de botella para garantizar operaciones eficientes." },
+      { title: "Orquestación y Automatización", description: "Eliminamos la fricción del trabajo repetitivo mediante pipelines automatizados con trazabilidad completa, observabilidad y control en tiempo real." },
     ],
     mission: {
       label: "Misión",
-      text: "Conectar los sistemas, los datos y las personas de cada empresa mediante inteligencia artificial, producto propio y automatización, para que su operación funcione como una sola red: coordinada, medible y preparada para crecer.",
+      text: "Orquestar la transformación digital de las empresas mediante inteligencia artificial, arquitectura de software y automatización avanzada, convirtiendo sus operaciones fragmentadas en una red coordinada, eficiente, medible y lista para escalar.",
     },
     vision: {
       label: "Visión",
-      text: "Ser la consultora de referencia que une a las organizaciones con la inteligencia artificial: un ecosistema en el que cada empresa, cada proceso y cada persona sea un nodo conectado de una red que se fortalece con cada nueva conexión.",
+      text: "Consolidarnos como la consultora de referencia global en integración de IA y sistemas autónomos, construyendo un ecosistema donde cada organización, proceso y equipo funcione como un nodo conectado dentro de una red tecnológica de alto rendimiento.",
     },
   },
   services: {
@@ -126,9 +126,9 @@ const es = {
   },
   projects: {
     eyebrow: "Proyectos",
-    title: "Nuestro trabajo",
-    subtitle: "Una selección de proyectos y casos de NFory.",
-    emptyCard: "Proyecto próximamente",
+    title: "Lo que podemos construir para ti",
+    subtitle: "Casos de uso de referencia que diseñamos e implementamos. Son ejemplos ilustrativos de nuestras capacidades, no proyectos entregados a clientes.",
+    badge: "Caso de uso",
     row: "Proyectos, fila {n}",
     carousel: "carrusel",
     previous: "Anterior",
@@ -208,7 +208,6 @@ const es = {
     membersEyebrow: "Integrantes",
     membersTitle: "Nuestros desarrolladores",
     membersSubtitle: "Ingenieros y consultores que diseñan, construyen e integran cada solución.",
-    memberEmpty: "Integrante próximamente",
     agentsEyebrow: "Agentes de IA",
     agentsTitle: "Los modelos de IA que usamos",
     agentsSubtitle: "Trabajamos con modelos de lenguaje de Anthropic, tanto en los agentes que integramos para nuestros clientes como en nuestro propio desarrollo de software.",

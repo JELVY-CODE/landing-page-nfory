@@ -5,7 +5,6 @@ const de: Dictionary = {
     title: "NFory | KI-Engineering & Prozessautomatisierung",
     description:
       "NFory ist ein Beratungsunternehmen, das KI-Agenten, maßgeschneiderte Systeme und Prozessorchestrierung entwickelt und integriert, um die Abläufe Ihres Unternehmens zu verbinden.",
-    ogTitle: "NFory | Der autonome Kern Ihres Unternehmens",
     ogDescription: "Beratung für KI-Engineering und Prozessautomatisierung: eigene SaaS-Plattform und B2B-Beratung.",
   },
   nav: {
@@ -32,24 +31,25 @@ const de: Dictionary = {
   },
   about: {
     eyebrow: "Über uns",
-    title: "Wir verbinden die Systeme, die Ihr Unternehmen bereits antreiben",
+    title: "Wir entwerfen die intelligente Infrastruktur, die die Zukunft Ihres Unternehmens verbindet",
     paragraphs: [
-      "NFory ist ein Beratungsunternehmen für Engineering in künstlicher Intelligenz und Prozessautomatisierung. Unser Ausgangspunkt ist einfach: Jedes Unternehmen funktioniert bereits als Netzwerk aus Menschen, Werkzeugen, Daten und Prozessen – doch seine Knoten sprechen selten miteinander.",
-      "Unsere Aufgabe ist es, sie zu verbinden. Jeder Knoten unserer Marke steht für diese Verbindung: das Netzwerk, das bereits existiert und uns alle verbindet – und nun endlich als ein einziges System arbeitet.",
+      "NFory ist ein Beratungsunternehmen, spezialisiert auf KI-Architektur und die Automatisierung von Geschäftsprozessen.",
+      "Wir gehen von einer operativen Prämisse aus: Ihr Unternehmen ist bereits ein vernetztes System aus Menschen, Werkzeugen, Daten und Workflows – doch in den meisten Organisationen arbeiten diese Knoten isoliert.",
+      "Unser Ziel ist es, dieses Netzwerk zu verbinden und zu stärken. Jeder Knoten unserer Identität steht für eine strategische Integration: Wir verwandeln fragmentierte Systeme in ein autonomes, kohärentes und leistungsstarkes Ökosystem.",
     ],
     connections: [
-      { title: "KI integrieren", description: "Wir bringen künstliche Intelligenz dorthin, wo sie in Ihren Abläufen echten Mehrwert schafft." },
-      { title: "Produkte entwickeln", description: "Wir bauen eigene Software, wenn bestehende Lösungen das Problem nicht lösen." },
-      { title: "Prozesse verbessern", description: "Wir gestalten die Abläufe neu, die Teams bremsen, bevor wir sie automatisieren." },
-      { title: "Abläufe automatisieren", description: "Wiederkehrende Arbeit läuft von selbst – mit Nachvollziehbarkeit in jedem Schritt." },
+      { title: "Strategische KI-Integration", description: "Wir setzen KI-Modelle an den kritischen Punkten Ihrer Abläufe ein und erzielen direkte Wirkung auf Produktivität und Ergebnis." },
+      { title: "Entwicklung eigener Software", description: "Wir konzipieren und bauen robuste, skalierbare Plattformen, wenn Standardlösungen das Wachstum Ihres Unternehmens begrenzen." },
+      { title: "Prozess-Reengineering", description: "Wir analysieren und optimieren Workflows, bevor wir sie automatisieren, und beseitigen Engpässe für effiziente Abläufe." },
+      { title: "Orchestrierung und Automatisierung", description: "Wir beseitigen die Reibung repetitiver Arbeit durch automatisierte Pipelines mit vollständiger Nachvollziehbarkeit, Observability und Echtzeitkontrolle." },
     ],
     mission: {
       label: "Mission",
-      text: "Die Systeme, Daten und Menschen jedes Unternehmens durch künstliche Intelligenz, eigene Produkte und Automatisierung zu verbinden, damit der Betrieb als ein einziges Netzwerk funktioniert: koordiniert, messbar und bereit zu wachsen.",
+      text: "Die digitale Transformation von Unternehmen durch künstliche Intelligenz, Softwarearchitektur und fortschrittliche Automatisierung zu orchestrieren und fragmentierte Abläufe in ein koordiniertes, effizientes, messbares und skalierbares Netzwerk zu verwandeln.",
     },
     vision: {
       label: "Vision",
-      text: "Die führende Beratung zu sein, die Organisationen mit künstlicher Intelligenz verbindet: ein Ökosystem, in dem jedes Unternehmen, jeder Prozess und jeder Mensch ein vernetzter Knoten eines Netzwerks ist, das mit jeder neuen Verbindung stärker wird.",
+      text: "Uns als weltweit führende Beratung für KI-Integration und autonome Systeme zu etablieren und ein Ökosystem aufzubauen, in dem jede Organisation, jeder Prozess und jedes Team als vernetzter Knoten eines leistungsstarken Technologienetzwerks agiert.",
     },
   },
   services: {
@@ -128,9 +128,9 @@ const de: Dictionary = {
   },
   projects: {
     eyebrow: "Projekte",
-    title: "Unsere Arbeit",
-    subtitle: "Eine Auswahl an Projekten und Fallstudien von NFory.",
-    emptyCard: "Projekt in Kürze",
+    title: "Was wir für Sie bauen können",
+    subtitle: "Referenz-Anwendungsfälle, die wir konzipieren und umsetzen. Es handelt sich um illustrative Beispiele unserer Fähigkeiten, nicht um ausgelieferte Kundenprojekte.",
+    badge: "Anwendungsfall",
     row: "Projekte, Reihe {n}",
     carousel: "Karussell",
     previous: "Zurück",
@@ -210,7 +210,6 @@ const de: Dictionary = {
     membersEyebrow: "Mitglieder",
     membersTitle: "Unsere Entwickler",
     membersSubtitle: "Ingenieure und Berater, die jede Lösung konzipieren, entwickeln und integrieren.",
-    memberEmpty: "Mitglied folgt in Kürze",
     agentsEyebrow: "KI-Agenten",
     agentsTitle: "Die KI-Modelle, die wir einsetzen",
     agentsSubtitle: "Wir arbeiten mit Sprachmodellen von Anthropic – sowohl in den Agenten, die wir für unsere Kunden integrieren, als auch in unserer eigenen Softwareentwicklung.",
