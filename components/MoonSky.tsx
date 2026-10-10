@@ -36,10 +36,14 @@ export default function MoonSky() {
     return () => window.clearInterval(timer);
   }, []);
 
+  // Cielo anclado al inicio de la landing: la luna orbita la página principal, así que se queda arriba al hacer
+  // scroll y se desplaza junto con la landing al viajar al nodo 00.
   return (
-    <div ref={rootRef} data-moon="" className="moon-sky absolute top-0 left-0">
-      <div className="absolute inset-[-120%] rounded-full bg-[radial-gradient(circle,rgb(167_139_250/0.16)_0%,rgb(99_102_241/0.06)_40%,transparent_70%)]" />
-      <canvas ref={canvasRef} className="relative block size-24 drop-shadow-[0_0_24px_rgb(196_181_253/0.35)]" />
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-screen overflow-hidden">
+      <div ref={rootRef} data-moon="" className="moon-sky absolute top-0 left-0">
+        <div className="absolute inset-[-120%] rounded-full bg-[radial-gradient(circle,rgb(167_139_250/0.16)_0%,rgb(99_102_241/0.06)_40%,transparent_70%)]" />
+        <canvas ref={canvasRef} className="relative block size-24 drop-shadow-[0_0_24px_rgb(196_181_253/0.35)]" />
+      </div>
     </div>
   );
 }

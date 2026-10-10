@@ -6,6 +6,7 @@ import DevelopersView from "@/components/DevelopersView";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HybridModel from "@/components/HybridModel";
+import MoonSky from "@/components/MoonSky";
 import Navbar from "@/components/Navbar";
 import PageBackground from "@/components/PageBackground";
 import ProjectsGallery from "@/components/ProjectsGallery";
@@ -35,6 +36,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           { index: "04", label: dict.nav.contact, href: "#contacto" },
         ]}
       >
+        <MoonSky />
         <main className="relative">
           <Hero t={dict.hero} cta={dict.nav.cta} />
           <ScrollJourney>
