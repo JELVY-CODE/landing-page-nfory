@@ -7,7 +7,7 @@ type BrandLogoProps = {
 
 const sizes = {
   md: { icon: "size-8", text: "text-lg" },
-  lg: { icon: "size-11", text: "text-2xl" },
+  lg: { icon: "size-12", text: "text-2xl" },
 } as const;
 
 export default function BrandLogo({ size = "md", className = "" }: BrandLogoProps) {
