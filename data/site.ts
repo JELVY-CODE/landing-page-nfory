@@ -2,7 +2,7 @@ export const site = {
   name: "NFory",
   domain: "nfory.com",
   contactHref: "#contacto",
-  contactEmail: "jesuslizarraga@nfory.com",
+  contactEmail: "support@nfory.com",
   nav: [
     { key: "about", href: "#nosotros", page: false },
     { key: "services", href: "#servicios", page: false },
