@@ -18,7 +18,7 @@ export default function BrandLogo({ size = "md", className = "" }: BrandLogoProp
         alt=""
         width={297}
         height={297}
-        preload={size === "lg"}
+        loading={size === "lg" ? "eager" : undefined}
         fetchPriority={size === "lg" ? "high" : undefined}
         className={sizes[size].icon}
       />
