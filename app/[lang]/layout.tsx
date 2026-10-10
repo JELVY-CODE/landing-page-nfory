@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       languages: Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}`])),
     },
     icons: {
-      icon: { url: "/images/favicon-nfory.svg?v=6", type: "image/svg+xml" },
+      icon: { url: "/images/favicon-nfory.svg?v=7", type: "image/svg+xml" },
       apple: "/images/isotipo-nfory.svg",
     },
     openGraph: {
