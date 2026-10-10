@@ -9,6 +9,8 @@ import { STAGES } from "@/lib/orchestration";
 type Mode = "pending" | "3d" | "fallback";
 type Phase = "idle" | "running" | "done";
 
+const LOOP_PAUSE_MS = 1000;
+
 const supportsWebGL = () => {
   try {
     return Boolean(document.createElement("canvas").getContext("webgl2"));
@@ -62,14 +64,28 @@ export default function Orchestration3D({ t }: { t: Dictionary["orchestration"] 
     };
   }, [mode, t.labels, t.details]);
 
-  if (mode === "fallback") return <OrchestrationFlow t={t} />;
+  // Ejecución automática en bucle: animación completa, pausa breve y vuelta a empezar.
+  useEffect(() => {
+    if (!ready) return;
+    let cancelled = false;
+    const loop = async () => {
+      while (!cancelled && sceneRef.current) {
+        await Promise.resolve();
+        if (cancelled) return;
+        setPhase("running");
+        await sceneRef.current.run((index) => !cancelled && setStage(index));
+        if (cancelled) return;
+        setPhase("done");
+        await new Promise((resolve) => window.setTimeout(resolve, LOOP_PAUSE_MS));
+      }
+    };
+    void loop();
+    return () => {
+      cancelled = true;
+    };
+  }, [ready]);
 
-  const run = async () => {
-    if (!sceneRef.current || phase === "running") return;
-    setPhase("running");
-    await sceneRef.current.run(setStage);
-    setPhase("done");
-  };
+  if (mode === "fallback") return <OrchestrationFlow t={t} />;
 
   const status =
     phase === "done" ? t.done.replace("{count}", String(STAGES.length)) : phase === "running" && stage !== null ? t.stages[stage] : t.idle;
@@ -125,21 +141,6 @@ export default function Orchestration3D({ t }: { t: Dictionary["orchestration"] 
             );
           })}
         </ol>
-        <button
-          type="button"
-          onClick={run}
-          disabled={!ready || phase === "running"}
-          className={
-            "inline-flex h-9 shrink-0 items-center gap-2 rounded-full border border-indigo-500/40 bg-indigo-500/15 px-4 text-sm font-medium text-indigo-100 " +
-            "transition-[background-color,border-color,scale,opacity] duration-150 ease-out-strong hover:border-indigo-400/60 hover:bg-indigo-500/25 " +
-            "active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 disabled:cursor-wait disabled:opacity-60"
-          }
-        >
-          <svg aria-hidden="true" viewBox="0 0 16 16" className="size-3.5" fill="currentColor">
-            <path d="M4.5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.4 2.7a.6.6 0 0 0-.9.5Z" />
-          </svg>
-          {phase === "running" ? t.running : phase === "done" ? t.rerun : t.run}
-        </button>
       </div>
     </div>
   );

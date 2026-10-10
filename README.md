@@ -44,7 +44,7 @@ data/                Contenido estructurado de la landing (editar aquí)
   content/           Textos de la página en cada idioma (es.ts define la estructura)
   site.ts            Nombre, correo, navegación y redes sociales
   gallery.ts         Tarjetas de proyectos
-  team.ts            Integrantes y modelos de IA
+  team.ts            Vista Desarrolladores (nodo 00): integrantes y modelos de IA
   contact.ts         Servicios y franjas horarias del formulario
   orchestration.ts   Nodos, conexiones y etapas del diagrama del pipeline
 lib/                 Lógica: i18n, geometría y escena 3D, fase lunar, utilidades

@@ -118,20 +118,6 @@ body {
     opacity 1.2s ease;
 }
 
-/* Entrada lateral de <SlideIn />: parte fuera, a la derecha, hasta que el scroll la trae. */
-.slide-in {
-  opacity: 0;
-  transform: translate3d(55%, 0, 0);
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .slide-in {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 .marquee {
   overflow: hidden;
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);

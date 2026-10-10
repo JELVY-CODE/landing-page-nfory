@@ -1,0 +1,189 @@
+'use client';
+
+import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
+
+const HASH = "#desarrolladores";
+const DURATION_MS = 1400;
+const EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
+
+// El estado abierto/cerrado vive en el hash de la URL: se puede enlazar y el botón Atrás funciona.
+const subscribe = (callback: () => void) => {
+  window.addEventListener("hashchange", callback);
+  return () => window.removeEventListener("hashchange", callback);
+};
+const isOpen = () => window.location.hash === HASH;
+
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
+
+type Point = { x: number; y: number };
+
+const center = (element: Element | null): Point | null => {
+  const rect = element?.getBoundingClientRect();
+  if (!rect || rect.width === 0) return null;
+  return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+};
+
+type DevelopersTransitionProps = {
+  children: ReactNode;
+  view: ReactNode;
+  labels: { open: string; back: string };
+};
+
+export default function DevelopersTransition({ children, view, labels }: DevelopersTransitionProps) {
+  const open = useSyncExternalStore(subscribe, isOpen, () => false);
+  const pageRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const baseRef = useRef<SVGPathElement>(null);
+  const litRef = useRef<SVGPathElement>(null);
+  const pulseRef = useRef<SVGCircleElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const previousOpen = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    const page = pageRef.current;
+    const panel = panelRef.current;
+    const svg = svgRef.current;
+    if (!page || !panel || !svg) return;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Solo se anima un cambio real de estado: al cargar (o en el doble montaje de desarrollo) se aplica sin transición.
+    const animate = previousOpen.current !== null && previousOpen.current !== open && !reduced;
+    previousOpen.current = open;
+
+    const transition = animate ? `transform ${DURATION_MS}ms ${EASING}` : "none";
+    page.style.transition = transition;
+    panel.style.transition = transition;
+    page.style.transform = open ? "translate3d(-100%, 0, 0)" : "none";
+    panel.style.transform = open ? "none" : "translate3d(100%, 0, 0)";
+    panel.style.visibility = "visible";
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    if (open) panel.scrollTop = 0;
+
+    const node = panel.querySelector<HTMLElement>("[data-developers-node]");
+    if (node) node.dataset.active = String(open && !animate);
+    if (!animate) {
+      if (!open) panel.style.visibility = "hidden";
+      return;
+    }
+
+    // Traza de luz entre el punto actual del recorrido y el nodo 00, recalculada en cada fotograma
+    // mientras las dos "páginas" se desplazan.
+    const tip = document.querySelector("[data-journey-tip]");
+    const fallback = (): Point => ({ x: 0, y: window.innerHeight / 2 });
+    const base = baseRef.current!;
+    const lit = litRef.current!;
+    const pulse = pulseRef.current!;
+    const start = performance.now();
+    let frameId = 0;
+
+    svg.style.opacity = "1";
+    const frame = (now: number) => {
+      const raw = Math.min(1, (now - start) / DURATION_MS);
+      const progress = easeInOut(raw);
+      const fromTip = center(tip) ?? fallback();
+      const toNode = center(node) ?? { x: window.innerWidth * 0.12, y: window.innerHeight * 0.3 };
+      const [from, to] = open ? [fromTip, toNode] : [toNode, fromTip];
+      const mid = (from.x + to.x) / 2;
+      const d = `M${from.x} ${from.y} C${mid} ${from.y}, ${mid} ${to.y}, ${to.x} ${to.y}`;
+      base.setAttribute("d", d);
+      lit.setAttribute("d", d);
+      const length = lit.getTotalLength();
+      lit.style.strokeDasharray = `${length * progress} ${length}`;
+      const point = lit.getPointAtLength(length * progress);
+      pulse.setAttribute("cx", String(point.x));
+      pulse.setAttribute("cy", String(point.y));
+
+      if (raw < 1) {
+        frameId = requestAnimationFrame(frame);
+        return;
+      }
+      if (node) node.dataset.active = String(open);
+      if (!open) panel.style.visibility = "hidden";
+      svg.style.opacity = "0";
+    };
+    frameId = requestAnimationFrame(frame);
+
+    return () => cancelAnimationFrame(frameId);
+  }, [open]);
+
+  useEffect(() => () => void (document.documentElement.style.overflow = ""), []);
+
+  const close = () => {
+    if (window.history.state?.developers) window.history.back();
+    else {
+      window.history.pushState(null, "", window.location.pathname + window.location.search);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+    }
+  };
+
+  const openView = () => {
+    window.history.pushState({ developers: true }, "", HASH);
+    window.dispatchEvent(new HashChangeEvent("hashchange"));
+  };
+
+  return (
+    <>
+      <div ref={pageRef} inert={open}>
+        {children}
+      </div>
+
+      <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="developers-title"
+        inert={!open}
+        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain px-4 pt-[4.5rem] sm:px-6"
+        style={{ transform: "translate3d(100%, 0, 0)", visibility: "hidden" }}
+      >
+        <div className="mx-auto max-w-6xl pt-10 pb-8 lg:pl-20">
+          <button
+            type="button"
+            onClick={close}
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-zinc-400 transition-[color,background-color,scale] duration-150 ease-out-strong hover:bg-white/[0.06] hover:text-white active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-violet-500"
+          >
+            <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 8H3m4-4L3 8l4 4" />
+            </svg>
+            {labels.back}
+          </button>
+        </div>
+        <div className="pt-8">{view}</div>
+      </div>
+
+      <svg ref={svgRef} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45] size-full opacity-0 transition-opacity duration-500">
+        <defs>
+          <filter id="developers-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <path ref={baseRef} fill="none" stroke="rgb(167 139 250 / 0.18)" strokeWidth="1" strokeDasharray="3 6" />
+        <path ref={litRef} fill="none" stroke="#A78BFA" strokeWidth="2" strokeLinecap="round" filter="url(#developers-glow)" />
+        <circle ref={pulseRef} r="5" fill="#F5F3FF" filter="url(#developers-glow)" />
+      </svg>
+
+      {!open && (
+        <button
+          type="button"
+          onClick={openView}
+          aria-label={labels.open}
+          className={
+            "group/dev fixed top-1/2 right-5 z-30 hidden -translate-y-1/2 items-center gap-3 lg:flex " +
+            "focus-visible:outline-none"
+          }
+        >
+          <span className="pointer-events-none translate-x-2 rounded-full border border-white/10 bg-zinc-950/80 px-3 py-1 font-mono text-[11px] tracking-wide text-zinc-300 uppercase opacity-0 backdrop-blur-md transition-[opacity,translate] duration-200 ease-out-strong group-hover/dev:translate-x-0 group-hover/dev:opacity-100 group-focus-visible/dev:translate-x-0 group-focus-visible/dev:opacity-100">
+            {labels.open}
+          </span>
+          <span className="flex size-12 items-center justify-center rounded-full border border-violet-500/40 bg-zinc-950 font-mono text-xs text-violet-200 shadow-[0_0_24px_-6px_rgb(139_92_246/0.8)] transition-[border-color,scale,box-shadow] duration-200 ease-out-strong group-hover/dev:scale-105 group-hover/dev:border-violet-400 group-active/dev:scale-95 group-focus-visible/dev:ring-2 group-focus-visible/dev:ring-violet-500">
+            00
+          </span>
+        </button>
+      )}
+    </>
+  );
+}

@@ -203,6 +203,7 @@ const de: Dictionary = {
     follow: "Folgen Sie uns",
   },
   team: {
+    back: "Zurück",
     eyebrow: "Entwickler",
     title: "Die Menschen und die Technologie hinter jeder Verbindung",
     subtitle: "Ein Engineering-Team, das künstliche Intelligenz, Produktentwicklung und Automatisierung verbindet – mit einem für den Produktivbetrieb gewählten Stack.",

@@ -203,6 +203,7 @@ const en: Dictionary = {
     follow: "Follow us",
   },
   team: {
+    back: "Back",
     eyebrow: "Developers",
     title: "The people and technology behind every connection",
     subtitle: "An engineering team that combines artificial intelligence, product development and automation, with a stack chosen for production.",

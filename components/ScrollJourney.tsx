@@ -145,6 +145,7 @@ export default function ScrollJourney({ children }: { children: ReactNode }) {
             <div ref={fillRef} className="h-full w-full origin-top bg-indigo-500" style={{ transform: "scaleY(0)" }} />
             <div
               ref={tipRef}
+              data-journey-tip=""
               className="absolute top-0 left-1/2 -mt-1 size-2 rounded-full bg-violet-400 opacity-0 shadow-[0_0_12px_4px_rgb(139_92_246/0.6)]"
             />
           </div>

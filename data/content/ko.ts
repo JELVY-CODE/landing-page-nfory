@@ -203,6 +203,7 @@ const ko: Dictionary = {
     follow: "팔로우하기",
   },
   team: {
+    back: "돌아가기",
     eyebrow: "개발자",
     title: "모든 연결 뒤에 있는 사람과 기술",
     subtitle: "인공지능, 제품 개발, 자동화를 결합하고 프로덕션을 위해 선택한 기술 스택을 갖춘 엔지니어링 팀입니다.",

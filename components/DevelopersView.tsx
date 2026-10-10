@@ -1,7 +1,5 @@
 import Image from "next/image";
 import BrandIcon from "@/components/BrandIcon";
-import JourneyNode from "@/components/JourneyNode";
-import SlideIn from "@/components/SlideIn";
 import { SOCIAL_ICONS } from "@/components/SocialLinks";
 import { aiModels, teamMembers } from "@/data/team";
 import { localize } from "@/lib/gallery";
@@ -13,18 +11,30 @@ const eyebrow = "font-mono text-xs tracking-wide text-indigo-400 uppercase";
 const subheading = "mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl";
 const bar = "block rounded-full bg-white/[0.06]";
 
-export default function DevelopersSection({ locale, t }: { locale: Locale; t: Dictionary["team"] }) {
+// Contenido de la vista "Desarrolladores" (nodo 00), que <DevelopersTransition /> muestra como una página aparte.
+export default function DevelopersView({ locale, t }: { locale: Locale; t: Dictionary["team"] }) {
   return (
-    <section className="overflow-x-clip px-4 pb-24 sm:px-6 sm:pb-32">
+    <section aria-labelledby="developers-title" className="pb-24 sm:pb-32">
       <div className="mx-auto max-w-6xl lg:pl-20">
-        <div id="desarrolladores" className="journey-anchor relative max-w-2xl">
-          <JourneyNode index="04" />
+        <div className="relative max-w-2xl">
+          <span
+            data-developers-node=""
+            data-active="false"
+            aria-hidden="true"
+            className={
+              "absolute -top-4 -left-14 hidden size-12 -translate-x-1/2 items-center justify-center rounded-full border border-white/10 bg-zinc-950 font-mono text-xs text-zinc-500 " +
+              "transition-[border-color,color,box-shadow,scale] duration-500 ease-out-strong lg:flex " +
+              "data-[active=true]:border-violet-500/70 data-[active=true]:text-white data-[active=true]:shadow-[0_0_0_6px_rgb(139_92_246/0.1),0_0_32px_-4px_rgb(139_92_246/0.7)]"
+            }
+          >
+            00
+          </span>
           <p className={eyebrow}>{t.eyebrow}</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">{t.title}</h2>
+          <h2 id="developers-title" className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-5xl">{t.title}</h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">{t.subtitle}</p>
         </div>
 
-        <SlideIn className="mt-14">
+        <div className="mt-14">
           <p className={eyebrow}>{t.membersEyebrow}</p>
           <h3 className={subheading}>{t.membersTitle}</h3>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{t.membersSubtitle}</p>
@@ -79,9 +89,9 @@ export default function DevelopersSection({ locale, t }: { locale: Locale; t: Di
               );
             })}
           </ul>
-        </SlideIn>
+        </div>
 
-        <SlideIn delay={0.18} className="mt-16">
+        <div className="mt-16">
           <p className={eyebrow}>{t.agentsEyebrow}</p>
           <h3 className={subheading}>{t.agentsTitle}</h3>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{t.agentsSubtitle}</p>
@@ -114,7 +124,7 @@ export default function DevelopersSection({ locale, t }: { locale: Locale; t: Di
               </article>
             ))}
           </div>
-        </SlideIn>
+        </div>
       </div>
     </section>
   );

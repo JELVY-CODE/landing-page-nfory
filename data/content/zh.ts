@@ -201,6 +201,7 @@ const zh: Dictionary = {
     follow: "关注我们",
   },
   team: {
+    back: "返回",
     eyebrow: "开发者",
     title: "每一次连接背后的人与技术",
     subtitle: "一支融合人工智能、产品开发与自动化的工程团队，拥有为生产环境精选的技术栈。",

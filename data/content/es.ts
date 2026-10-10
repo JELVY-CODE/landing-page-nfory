@@ -201,6 +201,7 @@ const es = {
     follow: "Síguenos",
   },
   team: {
+    back: "Volver",
     eyebrow: "Desarrolladores",
     title: "Las personas y la tecnología detrás de cada conexión",
     subtitle: "Un equipo de ingeniería que combina inteligencia artificial, desarrollo de producto y automatización, con un stack elegido para producción.",
