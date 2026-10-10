@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
+import { visibleById } from "@/lib/dom";
 
 export type ModuleLink = { index: string; label: string; href: string };
 
@@ -26,7 +27,7 @@ export default function ModuleIndex({ modules, developers, hidden }: ModuleIndex
   const [atStart, setAtStart] = useState(true);
 
   useEffect(() => {
-    const first = document.querySelector(modules[0]?.href ?? "");
+    const first = modules[0] ? visibleById(modules[0].href.slice(1)) : null;
     let frameId: number | null = null;
     const update = () => {
       frameId = null;
@@ -59,7 +60,7 @@ export default function ModuleIndex({ modules, developers, hidden }: ModuleIndex
       }
     >
       <ol className="relative flex flex-col items-end gap-4">
-        <span aria-hidden="true" className="absolute top-5 right-[21px] bottom-5 w-px bg-gradient-to-b from-violet-500/50 via-indigo-500/30 to-violet-500/50" />
+        <span aria-hidden="true" className="absolute top-5 right-[1.375rem] bottom-5 w-px translate-x-1/2 bg-gradient-to-b from-violet-500/50 via-indigo-500/30 to-violet-500/50" />
         {modules.map((module) => (
           <li key={module.href} className="relative">
             <a href={module.href} aria-label={module.label} className="group/item flex items-center gap-3 focus-visible:outline-none">
@@ -70,7 +71,7 @@ export default function ModuleIndex({ modules, developers, hidden }: ModuleIndex
         ))}
       </ol>
 
-      <span aria-hidden="true" className="mr-[21px] h-8 w-px border-l border-dashed border-violet-400/40" />
+      <span aria-hidden="true" className="mr-[1.375rem] h-8 w-px translate-x-1/2 border-l border-dashed border-violet-400/40" />
 
       <button type="button" onClick={developers.onOpen} aria-label={developers.label} className="group/item flex items-center gap-3 focus-visible:outline-none">
         <span className={labelClass}>{developers.label}</span>

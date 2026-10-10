@@ -25,7 +25,7 @@ export const teamMembers: TeamMember[] = [
       de: "CEO & Mitgründer",
       ru: "CEO и сооснователь",
     },
-    github: "https://github.com/JELVY-CODE",
+    photo: "/images/avatar-jesus-lizarraga.svg",
   },
 ];
 

@@ -136,3 +136,35 @@ body {
     animation: none;
   }
 }
+
+/* Cambio de idioma: fundido cruzado con View Transitions (o atenuado como respaldo) sin scroll-snap mientras se recoloca. */
+/* El fondo es la misma escena antes y después: no participa en el fundido. */
+::view-transition-old(page-background) {
+  display: none;
+}
+
+::view-transition-new(page-background) {
+  animation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+main,
+footer {
+  transition: opacity 280ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html[data-locale-switching] {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+html[data-locale-switching="fade"] main,
+html[data-locale-switching="fade"] footer {
+  opacity: 0;
+  transition-duration: 120ms;
+}

@@ -129,8 +129,9 @@ const de: Dictionary = {
   projects: {
     eyebrow: "Projekte",
     title: "Was wir für Sie bauen können",
-    subtitle: "Referenz-Anwendungsfälle, die wir konzipieren und umsetzen. Es handelt sich um illustrative Beispiele unserer Fähigkeiten, nicht um ausgelieferte Kundenprojekte.",
+    subtitle: "Beratungsleistungen und Referenz-Anwendungsfälle, die wir konzipieren und umsetzen. Es handelt sich um illustrative Beispiele unserer Fähigkeiten, nicht um ausgelieferte Kundenprojekte.",
     badge: "Anwendungsfall",
+    serviceBadge: "Leistung",
     row: "Projekte, Reihe {n}",
     carousel: "Karussell",
     previous: "Zurück",

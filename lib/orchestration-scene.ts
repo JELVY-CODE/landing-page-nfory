@@ -7,6 +7,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
 import { getMoonState } from "@/lib/moon";
 import { LINKS, NODES, STAGES, type NodeId } from "@/lib/orchestration";
+import { visibleOne } from "@/lib/dom";
 
 const COLORS = {
   indigo: 0x6366f1,
@@ -266,7 +267,7 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   const moonTimer = window.setInterval(() => (moonState = getMoonState()), 30_000);
 
   const aimAtMoon = () => {
-    const moonElement = document.querySelector<HTMLElement>("[data-moon]");
+    const moonElement = visibleOne("[data-moon]");
     const box = renderer.domElement.getBoundingClientRect();
     const moonBox = moonElement?.getBoundingClientRect();
     const moonX = moonBox ? moonBox.left + moonBox.width / 2 : moonState.x * window.innerWidth;

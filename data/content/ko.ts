@@ -129,8 +129,9 @@ const ko: Dictionary = {
   projects: {
     eyebrow: "프로젝트",
     title: "귀사를 위해 만들 수 있는 것",
-    subtitle: "NFory가 설계하고 구현하는 참고용 활용 사례입니다. 고객에게 납품한 프로젝트가 아니라 역량을 보여주는 예시입니다.",
+    subtitle: "NFory가 설계하고 구현하는 컨설팅 서비스와 참고용 활용 사례입니다. 고객에게 납품한 프로젝트가 아니라 역량을 보여주는 예시입니다.",
     badge: "활용 사례",
+    serviceBadge: "서비스",
     row: "프로젝트, {n}번째 줄",
     carousel: "캐러셀",
     previous: "이전",

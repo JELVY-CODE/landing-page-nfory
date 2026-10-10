@@ -127,8 +127,9 @@ const es = {
   projects: {
     eyebrow: "Proyectos",
     title: "Lo que podemos construir para ti",
-    subtitle: "Casos de uso de referencia que diseñamos e implementamos. Son ejemplos ilustrativos de nuestras capacidades, no proyectos entregados a clientes.",
+    subtitle: "Servicios de consultoría y casos de uso de referencia que diseñamos e implementamos. Son ejemplos ilustrativos de nuestras capacidades, no proyectos entregados a clientes.",
     badge: "Caso de uso",
+    serviceBadge: "Servicio",
     row: "Proyectos, fila {n}",
     carousel: "carrusel",
     previous: "Anterior",

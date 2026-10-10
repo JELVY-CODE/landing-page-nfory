@@ -127,8 +127,9 @@ const zh: Dictionary = {
   projects: {
     eyebrow: "项目",
     title: "我们能为您构建什么",
-    subtitle: "以下为 NFory 设计与实施的参考用例，仅用于展示我们的能力，并非已交付给客户的项目。",
+    subtitle: "以下为 NFory 设计与实施的咨询服务与参考用例，仅用于展示我们的能力，并非已交付给客户的项目。",
     badge: "用例",
+    serviceBadge: "服务",
     row: "项目，第 {n} 行",
     carousel: "轮播",
     previous: "上一个",

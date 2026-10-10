@@ -1,9 +1,10 @@
 import type { GalleryItem } from "@/lib/gallery";
 
-// Casos de uso de referencia (no son proyectos entregados a clientes; la sección lo indica).
+// Servicios y casos de uso de referencia (no son proyectos entregados a clientes; la sección lo indica).
 // Cuando haya proyectos reales, añádelos aquí con sus datos y opcionalmente `image` en /public/images/.
 const rag: GalleryItem = {
   id: "rag-support",
+  kind: "useCase",
   visual: "rag",
   tags: ["Claude", "RAG", "Vector DB", "Helpdesk API"],
   category: {
@@ -37,6 +38,7 @@ const rag: GalleryItem = {
 
 const pipeline: GalleryItem = {
   id: "data-pipelines",
+  kind: "useCase",
   visual: "pipeline",
   tags: ["Python", "FastAPI", "Workflows", "PostgreSQL"],
   category: {
@@ -70,6 +72,7 @@ const pipeline: GalleryItem = {
 
 const saas: GalleryItem = {
   id: "b2b-saas",
+  kind: "useCase",
   visual: "saas",
   tags: ["Next.js", "TypeScript", "Billing", "REST API"],
   category: {
@@ -103,6 +106,7 @@ const saas: GalleryItem = {
 
 const docs: GalleryItem = {
   id: "document-processing",
+  kind: "useCase",
   visual: "docs",
   tags: ["Claude", "OCR", "Guardrails", "ERP API"],
   category: {
@@ -134,5 +138,141 @@ const docs: GalleryItem = {
   },
 };
 
-// Una fila de carrusel; añade más arrays para mostrar filas adicionales.
-export const galleryRows: GalleryItem[][] = [[rag, pipeline, saas, docs]];
+const roadmap: GalleryItem = {
+  id: "ai-roadmap",
+  kind: "service",
+  visual: "roadmap",
+  tags: ["Discovery","Roadmap","ROI","Workshops"],
+  category: {
+    es: "Consultoría · Estrategia",
+    en: "Consulting · Strategy",
+    ko: "컨설팅 · 전략",
+    ja: "コンサルティング · 戦略",
+    zh: "咨询 · 战略",
+    de: "Beratung · Strategie",
+    ru: "Консалтинг · Стратегия",
+  },
+  title: {
+    es: "Diagnóstico y hoja de ruta de IA",
+    en: "AI assessment & roadmap",
+    ko: "AI 진단 및 로드맵",
+    ja: "AI 診断とロードマップ",
+    zh: "AI 诊断与路线图",
+    de: "KI-Analyse & Roadmap",
+    ru: "Диагностика и дорожная карта ИИ",
+  },
+  description: {
+    es: "Analizamos tus procesos, datos y sistemas para priorizar dónde la IA y la automatización generan más valor, con un plan por fases.",
+    en: "We analyze your processes, data and systems to prioritize where AI and automation create the most value, with a phased plan.",
+    ko: "프로세스, 데이터, 시스템을 분석해 AI와 자동화가 가장 큰 가치를 내는 지점을 우선순위화하고 단계별 계획을 수립합니다.",
+    ja: "業務プロセス・データ・システムを分析し、AI と自動化が最も価値を生む領域を優先順位づけし、段階的な計画を策定します。",
+    zh: "分析您的流程、数据与系统，确定 AI 与自动化最能创造价值的环节，并制定分阶段实施计划。",
+    de: "Wir analysieren Prozesse, Daten und Systeme, priorisieren, wo KI und Automatisierung den größten Nutzen stiften, und erstellen einen Stufenplan.",
+    ru: "Анализируем процессы, данные и системы, определяем, где ИИ и автоматизация дадут наибольшую ценность, и составляем поэтапный план.",
+  },
+};
+
+const crm: GalleryItem = {
+  id: "crm-assistant",
+  kind: "service",
+  visual: "crm",
+  tags: ["Claude","CRM API","Tool use","Webhooks"],
+  category: {
+    es: "IA aplicada · Ventas",
+    en: "Applied AI · Sales",
+    ko: "응용 AI · 영업",
+    ja: "応用 AI · 営業",
+    zh: "应用 AI · 销售",
+    de: "Angewandte KI · Vertrieb",
+    ru: "Прикладной ИИ · Продажи",
+  },
+  title: {
+    es: "Asistente comercial conectado al CRM",
+    en: "CRM-connected sales assistant",
+    ko: "CRM 연동 영업 어시스턴트",
+    ja: "CRM 連携セールスアシスタント",
+    zh: "对接 CRM 的销售助理",
+    de: "CRM-integrierter Vertriebsassistent",
+    ru: "Ассистент продаж, подключённый к CRM",
+  },
+  description: {
+    es: "Califica leads, prepara seguimientos y actualiza oportunidades en tu CRM, con aprobación humana antes de cada envío.",
+    en: "Qualifies leads, drafts follow-ups and updates opportunities in your CRM, with human approval before anything is sent.",
+    ko: "리드를 평가하고 후속 연락을 준비하며 CRM의 영업 기회를 업데이트합니다. 발송 전에는 사람이 승인합니다.",
+    ja: "リードの評価、フォローアップの下書き、CRM の商談更新を行い、送信前には必ず担当者が承認します。",
+    zh: "自动评估线索、起草跟进内容并更新 CRM 中的商机，发送前均需人工审批。",
+    de: "Qualifiziert Leads, entwirft Follow-ups und aktualisiert Opportunities im CRM – mit menschlicher Freigabe vor jedem Versand.",
+    ru: "Квалифицирует лиды, готовит follow-up и обновляет сделки в CRM, с одобрением человека перед каждой отправкой.",
+  },
+};
+
+const dashboard: GalleryItem = {
+  id: "ops-dashboard",
+  kind: "service",
+  visual: "dashboard",
+  tags: ["Next.js","PostgreSQL","Real-time","RBAC"],
+  category: {
+    es: "Producto · Sistemas a medida",
+    en: "Product · Custom systems",
+    ko: "제품 · 맞춤형 시스템",
+    ja: "プロダクト · カスタムシステム",
+    zh: "产品 · 定制系统",
+    de: "Produkt · Maßgeschneiderte Systeme",
+    ru: "Продукт · Индивидуальные системы",
+  },
+  title: {
+    es: "Panel de operaciones en tiempo real",
+    en: "Real-time operations dashboard",
+    ko: "실시간 운영 대시보드",
+    ja: "リアルタイム運用ダッシュボード",
+    zh: "实时运营看板",
+    de: "Echtzeit-Operations-Dashboard",
+    ru: "Операционная панель в реальном времени",
+  },
+  description: {
+    es: "Centraliza indicadores, alertas y tareas de tus equipos en una sola herramienta interna, con permisos por rol.",
+    en: "Centralizes your teams' KPIs, alerts and tasks in a single internal tool, with role-based permissions.",
+    ko: "팀의 핵심 지표, 알림, 업무를 하나의 내부 도구로 통합하고 역할별 권한을 적용합니다.",
+    ja: "チームの KPI、アラート、タスクをひとつの社内ツールに集約し、ロールごとの権限を設定します。",
+    zh: "将团队的关键指标、告警与任务集中到一个内部工具中，并按角色分配权限。",
+    de: "Bündelt Kennzahlen, Warnungen und Aufgaben Ihrer Teams in einem internen Tool mit rollenbasierten Berechtigungen.",
+    ru: "Объединяет показатели, оповещения и задачи команд в одном внутреннем инструменте с правами доступа по ролям.",
+  },
+};
+
+const monitor: GalleryItem = {
+  id: "monitoring",
+  kind: "service",
+  visual: "monitor",
+  tags: ["Observability","Alerts","Evals","SLA"],
+  category: {
+    es: "Operación · Soporte continuo",
+    en: "Operations · Ongoing support",
+    ko: "운영 · 지속 지원",
+    ja: "運用 · 継続サポート",
+    zh: "运维 · 持续支持",
+    de: "Betrieb · Laufender Support",
+    ru: "Эксплуатация · Постоянная поддержка",
+  },
+  title: {
+    es: "Monitoreo y mejora continua",
+    en: "Monitoring & continuous improvement",
+    ko: "모니터링 및 지속적 개선",
+    ja: "モニタリングと継続的改善",
+    zh: "监控与持续优化",
+    de: "Monitoring & kontinuierliche Verbesserung",
+    ru: "Мониторинг и постоянное улучшение",
+  },
+  description: {
+    es: "Supervisamos agentes y automatizaciones en producción: métricas, alertas y evaluaciones periódicas para mantener la calidad.",
+    en: "We supervise agents and automations in production: metrics, alerts and periodic evaluations to keep quality high.",
+    ko: "운영 중인 에이전트와 자동화를 지표, 알림, 정기 평가로 관리하여 품질을 유지합니다.",
+    ja: "本番稼働中のエージェントと自動化を、メトリクス・アラート・定期評価で監視し、品質を維持します。",
+    zh: "持续监控生产环境中的智能体与自动化：通过指标、告警与定期评估保障质量。",
+    de: "Wir überwachen Agenten und Automatisierungen im Betrieb: Metriken, Warnungen und regelmäßige Evaluierungen sichern die Qualität.",
+    ru: "Сопровождаем агентов и автоматизации в продакшене: метрики, оповещения и регулярные оценки качества.",
+  },
+};
+
+// Una fila de carrusel que alterna servicios y casos de uso por área.
+export const galleryRows: GalleryItem[][] = [[roadmap, rag, crm, pipeline, monitor, saas, dashboard, docs]];

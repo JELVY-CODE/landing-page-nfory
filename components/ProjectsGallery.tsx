@@ -31,7 +31,7 @@ export default function ProjectsGallery({ locale, t }: { locale: Locale; t: Dict
             labels={{ region: t.row.replace("{n}", String(index + 1)), carousel: t.carousel, previous: t.previous, next: t.next }}
           >
             {row.map((item) => (
-              <GalleryCard key={item.id} item={item} locale={locale} badge={t.badge} />
+              <GalleryCard key={item.id} item={item} locale={locale} badges={{ service: t.serviceBadge, useCase: t.badge }} />
             ))}
           </MarqueeRow>
         ))}

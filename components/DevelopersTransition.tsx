@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
 import ModuleIndex, { type ModuleLink } from "@/components/ModuleIndex";
+import { visibleOne } from "@/lib/dom";
 
 const HASH = "#desarrolladores";
 const DURATION_MS = 1400;
@@ -40,6 +41,7 @@ export default function DevelopersTransition({ children, view, labels, modules }
   const pulseRef = useRef<SVGCircleElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const previousOpen = useRef<boolean | null>(null);
+  const isOpenRef = useRef(open);
 
   useEffect(() => {
     const page = pageRef.current;
@@ -51,6 +53,7 @@ export default function DevelopersTransition({ children, view, labels, modules }
     // Solo se anima un cambio real de estado: al cargar (o en el doble montaje de desarrollo) se aplica sin transición.
     const animate = previousOpen.current !== null && previousOpen.current !== open && !reduced;
     previousOpen.current = open;
+    isOpenRef.current = open;
 
     const transition = animate ? `transform ${DURATION_MS}ms ${EASING}` : "none";
     page.style.transition = transition;
@@ -61,6 +64,14 @@ export default function DevelopersTransition({ children, view, labels, modules }
     document.documentElement.style.overflow = open ? "hidden" : "";
     if (open) panel.scrollTop = 0;
 
+    // Al salir hacia un módulo desde el header, la landing se coloca en él antes de volver y la traza
+    // conecta el nodo 00 directamente con el nodo de ese módulo.
+    const anchor = open ? null : window.location.hash ? visibleOne(`[id="${CSS.escape(window.location.hash.slice(1))}"].journey-anchor`) : null;
+    if (anchor) {
+      const margin = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
+      window.scrollTo({ top: anchor.getBoundingClientRect().top + window.scrollY - margin, behavior: "instant" });
+    }
+
     const node = panel.querySelector<HTMLElement>("[data-developers-node]");
     if (node) node.dataset.active = String(open && !animate);
     if (!animate) {
@@ -70,7 +81,7 @@ export default function DevelopersTransition({ children, view, labels, modules }
 
     // Traza de luz entre el punto actual del recorrido y el nodo 00, recalculada en cada fotograma
     // mientras las dos "páginas" se desplazan.
-    const tip = document.querySelector("[data-journey-tip]");
+    const tip = anchor?.querySelector("[data-journey-node] > span:last-child") ?? visibleOne("[data-journey-tip]");
     const fallback = (): Point => ({ x: 0, y: window.innerHeight / 2 });
     const base = baseRef.current!;
     const lit = litRef.current!;
@@ -119,6 +130,29 @@ export default function DevelopersTransition({ children, view, labels, modules }
   }, [open]);
 
   useEffect(() => () => void (document.documentElement.style.overflow = ""), []);
+
+  // Los enlaces #sección se resuelven contra el elemento visible: el navegador saltaría al primero del
+  // documento, que puede pertenecer a una página de otro idioma que Next.js mantiene oculta.
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = (event.target as Element).closest?.<HTMLAnchorElement>("a[href*='#']");
+      if (!link || link.target) return;
+      const url = new URL(link.href);
+      if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || !url.hash) return;
+      event.preventDefault();
+      if (url.hash === window.location.hash) {
+        if (url.hash !== HASH) visibleOne(`[id="${CSS.escape(url.hash.slice(1))}"]`)?.scrollIntoView();
+        return;
+      }
+      window.history.pushState(url.hash === HASH ? { developers: true } : null, "", url.hash);
+      window.dispatchEvent(new HashChangeEvent("hashchange"));
+      // Con la vista de Desarrolladores abierta, el cierre ya coloca la landing en la sección destino.
+      if (url.hash !== HASH && !isOpenRef.current) visibleOne(`[id="${CSS.escape(url.hash.slice(1))}"]`)?.scrollIntoView();
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   const close = () => {
     if (window.history.state?.developers) window.history.back();

@@ -1,11 +1,90 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { LOCALES, LOCALE_NAMES, type Locale } from "@/lib/i18n/config";
+import { LOCALES, LOCALE_COOKIE, LOCALE_NAMES, type Locale } from "@/lib/i18n/config";
+import { visibleAll, visibleById, visibleOne } from "@/lib/dom";
+
+const RESTORE_KEY = "nfory:locale-restore";
+const USER_INPUT = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+
+// Con View Transitions el navegador mantiene una captura de la página mientras llega el idioma nuevo
+// y hace un fundido cruzado cuando el contenido ya está recolocado; esta función cierra esa espera.
+let finishTransition: (() => void) | null = null;
+const endTransition = () => {
+  finishTransition?.();
+  finishTransition = null;
+};
+type Restore = { id: string | null; offset: number; panel: number };
+
+// Guarda la sección visible (y su desplazamiento) para volver al mismo punto tras cambiar de idioma,
+// ya que cada idioma es otro documento y la altura del contenido cambia entre traducciones.
+function saveReading(code: Locale) {
+  document.cookie = `${LOCALE_COOKIE}=${code}; path=/; max-age=31536000; samesite=lax`;
+  const marker = window.innerHeight / 3;
+  let current: HTMLElement | null = null;
+  for (const element of visibleAll("#inicio, main .journey-anchor[id]")) {
+    if (element.getBoundingClientRect().top <= marker) current = element;
+  }
+  const panel = visibleOne("[role=dialog][aria-labelledby=developers-title]");
+  const restore: Restore = { id: current?.id ?? null, offset: current ? current.getBoundingClientRect().top : 0, panel: panel?.scrollTop ?? 0 };
+  try {
+    sessionStorage.setItem(RESTORE_KEY, JSON.stringify(restore));
+  } catch {}
+}
+
+function restoreReading() {
+  const root = document.documentElement;
+  let restore: Restore | null = null;
+  try {
+    restore = JSON.parse(sessionStorage.getItem(RESTORE_KEY) ?? "null");
+    sessionStorage.removeItem(RESTORE_KEY);
+  } catch {}
+  if (!restore) {
+    delete root.dataset.localeSwitching;
+    endTransition();
+    return;
+  }
+  const { id, offset, panel } = restore;
+  const apply = () => {
+    const target = id ? visibleById(id) : null;
+    const top = target ? target.getBoundingClientRect().top + window.scrollY - offset : 0;
+    window.scrollTo({ top, behavior: "instant" });
+    const dialog = visibleOne("[role=dialog][aria-labelledby=developers-title]");
+    if (dialog && window.location.hash === "#desarrolladores") dialog.scrollTop = panel;
+  };
+
+  // Mientras el contenido nuevo se asienta (fuentes, diagrama 3D) la página queda atenuada, sin scroll-snap,
+  // y se mantiene anclada a la misma sección; luego reaparece con un fundido.
+  let settle = 0;
+  const reveal = () => {
+    observer.disconnect();
+    window.clearTimeout(settle);
+    window.clearTimeout(limit);
+    for (const type of USER_INPUT) window.removeEventListener(type, reveal);
+    apply();
+    endTransition();
+    requestAnimationFrame(() => delete root.dataset.localeSwitching);
+  };
+  const onResize = () => {
+    apply();
+    window.clearTimeout(settle);
+    settle = window.setTimeout(reveal, 150);
+  };
+  const observer = new ResizeObserver(onResize);
+  observer.observe(document.body);
+  const limit = window.setTimeout(reveal, 1500);
+  for (const type of USER_INPUT) window.addEventListener(type, reveal, { passive: true });
+  onResize();
+}
 
 export default function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+
+  const router = useRouter();
+
+  useEffect(restoreReading, [locale]);
 
   useEffect(() => {
     if (!open) return;
@@ -54,6 +133,31 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
               <a
                 role="menuitem"
                 href={`/${code}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setOpen(false);
+                  if (code === locale) return;
+                  saveReading(code);
+                  const hash = window.location.hash === "#desarrolladores" ? window.location.hash : "";
+                  const navigate = () => router.push(`/${code}${window.location.search}${hash}`, { scroll: false });
+                  const root = document.documentElement;
+                  if (!document.startViewTransition || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    root.dataset.localeSwitching = "fade";
+                    navigate();
+                    return;
+                  }
+                  root.dataset.localeSwitching = "";
+                  const transition = document.startViewTransition(
+                    () =>
+                      new Promise<void>((resolve) => {
+                        finishTransition = resolve;
+                        window.setTimeout(endTransition, 3000);
+                        navigate();
+                      }),
+                  );
+                  // Si el navegador omite la animación (p. ej. pestaña oculta) el cambio de idioma sigue igual.
+                  transition.ready.catch(() => {});
+                }}
                 hrefLang={code}
                 lang={code}
                 aria-current={code === locale ? "true" : undefined}

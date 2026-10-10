@@ -47,6 +47,10 @@ function mixTone(tone: number, alpha: number): string {
   return PALETTE[toneIndex * (ALPHA_STEPS + 1) + alphaIndex];
 }
 
+// La escena vive a nivel de módulo: al cambiar de idioma la página se vuelve a montar, pero la red
+// continúa con los mismos nodos en lugar de generar un patrón nuevo.
+const scene: { nodes: NeuralNode[]; width: number; height: number } = { nodes: [], width: 0, height: 0 };
+
 function createNodes(width: number, height: number): NeuralNode[] {
   const count = Math.max(
     MIN_NODES,
@@ -80,9 +84,9 @@ export default function InteractiveNeuralBackground({
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     let reducedMotion = motionQuery.matches;
 
-    let width = 0;
-    let height = 0;
-    let nodes: NeuralNode[] = [];
+    let width = scene.width;
+    let height = scene.height;
+    let nodes = scene.nodes;
     let frameId: number | null = null;
     let lastTime = 0;
 
@@ -102,7 +106,7 @@ export default function InteractiveNeuralBackground({
 
       if (nodes.length === 0 || prevWidth === 0 || prevHeight === 0) {
         nodes = createNodes(width, height);
-      } else {
+      } else if (width !== prevWidth || height !== prevHeight) {
         const sx = width / prevWidth;
         const sy = height / prevHeight;
         for (const node of nodes) {
@@ -110,6 +114,8 @@ export default function InteractiveNeuralBackground({
           node.y *= sy;
         }
       }
+
+      Object.assign(scene, { nodes, width, height });
 
       // Sin bucle activo (movimiento reducido o pestaña oculta) se dibuja un fotograma estático.
       if (frameId === null) draw();

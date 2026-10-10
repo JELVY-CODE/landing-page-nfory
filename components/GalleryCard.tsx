@@ -79,11 +79,81 @@ const VISUALS: Record<GalleryVisual, React.ReactNode> = {
       <path d="m225 134 5 5 9-10" fill="none" stroke="#EDE9FE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </>
   ),
+  roadmap: (
+    <>
+      <path d="M48 140 C 100 140, 110 100, 160 100 S 220 60, 272 60" fill="none" stroke={LILAC} strokeOpacity="0.3" strokeWidth="6" strokeLinecap="round" />
+      <path d="M48 140 C 100 140, 110 100, 160 100 S 220 60, 272 60" fill="none" stroke={VIOLET} strokeWidth="2" strokeDasharray="6 8" strokeLinecap="round" />
+      {[
+        [48, 140],
+        [120, 118],
+        [200, 82],
+        [272, 60],
+      ].map(([x, y], i) => (
+        <g key={x}>
+          <circle cx={x} cy={y} r={i === 3 ? 13 : 9} fill="#13131c" stroke={i === 3 ? VIOLET : INDIGO} strokeWidth="1.5" />
+          <text x={x} y={y + 3.5} textAnchor="middle" fontSize="9" fontFamily="monospace" fill="#EDE9FE">
+            {i + 1}
+          </text>
+          <rect x={x - 20} y={y + 18} width="40" height="4" rx="2" fill={LILAC} fillOpacity="0.45" />
+        </g>
+      ))}
+      <path d="M262 34v14M262 34h16l-4 5 4 5h-16" fill={VIOLET} fillOpacity="0.5" stroke={VIOLET} strokeLinejoin="round" />
+    </>
+  ),
+  crm: (
+    <>
+      <rect x="44" y="44" width="120" height="112" rx="8" fill="#13131c" stroke={INDIGO} strokeOpacity="0.7" />
+      {[0, 1, 2, 3].map((i) => (
+        <g key={i}>
+          <circle cx="60" cy={66 + i * 24} r="6" fill={i === 1 ? VIOLET : INDIGO} fillOpacity={i === 1 ? 0.9 : 0.4} />
+          <rect x="72" y={63 + i * 24} width={i % 2 ? 54 : 74} height="5" rx="2.5" fill={LILAC} fillOpacity={i === 1 ? 0.85 : 0.35} />
+        </g>
+      ))}
+      <path d="M164 90 C 190 90, 190 100, 214 100" fill="none" stroke={VIOLET} strokeWidth="1.5" strokeDasharray="4 4" />
+      <circle cx="244" cy="100" r="30" fill={VIOLET} fillOpacity="0.15" />
+      <circle cx="244" cy="100" r="19" fill="#13131c" stroke={VIOLET} strokeWidth="1.5" />
+      <path d="M236 96h16M236 103h10" stroke="#EDE9FE" strokeWidth="1.5" strokeLinecap="round" />
+      <rect x="216" y="142" width="56" height="18" rx="9" fill="#13131c" stroke={LILAC} strokeOpacity="0.6" />
+      <path d="m233 151 4 4 7-8" fill="none" stroke="#EDE9FE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="248" y="149" width="16" height="4" rx="2" fill={LILAC} fillOpacity="0.6" />
+    </>
+  ),
+  dashboard: (
+    <>
+      <rect x="52" y="40" width="216" height="124" rx="8" fill="#13131c" stroke={INDIGO} strokeOpacity="0.7" />
+      <rect x="52" y="40" width="44" height="124" rx="8" fill={INDIGO} fillOpacity="0.1" />
+      {[0, 1, 2, 3].map((i) => (
+        <rect key={i} x="62" y={56 + i * 16} width="24" height="5" rx="2.5" fill={LILAC} fillOpacity={i === 0 ? 0.85 : 0.35} />
+      ))}
+      {[0, 1, 2].map((i) => (
+        <g key={i}>
+          <rect x={108 + i * 52} y="52" width="44" height="30" rx="5" fill="#0f0f17" stroke={i === 1 ? VIOLET : INDIGO} strokeOpacity="0.6" />
+          <rect x={114 + i * 52} y="60" width="20" height="4" rx="2" fill={LILAC} fillOpacity="0.4" />
+          <rect x={114 + i * 52} y="69" width="30" height="6" rx="3" fill={i === 1 ? VIOLET : INDIGO} fillOpacity="0.8" />
+        </g>
+      ))}
+      <path d="M110 148 L134 132 L156 138 L182 112 L206 120 L230 98 L256 104" fill="none" stroke={VIOLET} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M110 148 L134 132 L156 138 L182 112 L206 120 L230 98 L256 104 V154 H110 Z" fill={VIOLET} fillOpacity="0.12" />
+      <circle cx="256" cy="104" r="4" fill={VIOLET} />
+    </>
+  ),
+  monitor: (
+    <>
+      <circle cx="160" cy="100" r="66" fill="none" stroke={INDIGO} strokeOpacity="0.25" />
+      <circle cx="160" cy="100" r="44" fill="none" stroke={INDIGO} strokeOpacity="0.4" />
+      <path d="M40 100h44l12-26 16 52 14-38 10 12h104" fill="none" stroke={VIOLET} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="160" cy="100" r="19" fill="#13131c" stroke={VIOLET} strokeWidth="1.5" />
+      <path d="m152 100 5 5 10-11" fill="none" stroke="#EDE9FE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      {[0, 1, 2].map((i) => (
+        <circle key={i} cx={232 + i * 14} cy="48" r="4" fill={i === 2 ? VIOLET : INDIGO} fillOpacity={0.4 + i * 0.25} />
+      ))}
+    </>
+  ),
 };
 
-type GalleryCardProps = { item: GalleryItem; locale: Locale; badge: string };
+type GalleryCardProps = { item: GalleryItem; locale: Locale; badges: { service: string; useCase: string } };
 
-export default function GalleryCard({ item, locale, badge }: GalleryCardProps) {
+export default function GalleryCard({ item, locale, badges }: GalleryCardProps) {
   const title = localize(item.title, locale);
 
   return (
@@ -102,8 +172,12 @@ export default function GalleryCard({ item, locale, badge }: GalleryCardProps) {
             {VISUALS[item.visual]}
           </svg>
         )}
-        <span className="absolute top-3 left-3 rounded-full border border-white/10 bg-zinc-950/80 px-2.5 py-0.5 font-mono text-[10px] tracking-wide text-zinc-300 uppercase">
-          {badge}
+        <span
+          className={`absolute top-3 left-3 rounded-full border bg-zinc-950/80 px-2.5 py-0.5 font-mono text-[10px] tracking-wide uppercase ${
+            item.kind === "service" ? "border-violet-400/40 text-violet-200" : "border-white/10 text-zinc-300"
+          }`}
+        >
+          {item.kind === "service" ? badges.service : badges.useCase}
         </span>
       </div>
 

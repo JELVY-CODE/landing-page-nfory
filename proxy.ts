@@ -1,7 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { DEFAULT_LOCALE, LOCALES, hasLocale, type Locale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_COOKIE, hasLocale, type Locale } from "@/lib/i18n/config";
 
 function preferredLocale(request: NextRequest): Locale {
+  const saved = request.cookies.get(LOCALE_COOKIE)?.value;
+  if (saved && hasLocale(saved)) return saved;
   const header = request.headers.get("accept-language") ?? "";
   const ranked = header
     .split(",")
