@@ -19,10 +19,6 @@ const labelClass =
   "pointer-events-none translate-x-2 rounded-full border border-white/10 bg-zinc-950/85 px-3 py-1 font-mono text-[11px] tracking-wide whitespace-nowrap text-zinc-200 uppercase opacity-0 " +
   "backdrop-blur-md transition-[opacity,translate] duration-200 ease-out-strong group-hover/item:translate-x-0 group-hover/item:opacity-100 group-focus-visible/item:translate-x-0 group-focus-visible/item:opacity-100";
 
-/**
- * Índice de nodos del lateral derecho: solo se muestra con la landing en su inicio (Hero) y se
- * desvanece al llegar al primer módulo o al abrir la vista de Desarrolladores.
- */
 export default function ModuleIndex({ modules, developers, hidden }: ModuleIndexProps) {
   const [atStart, setAtStart] = useState(true);
 

@@ -39,7 +39,6 @@ export default function Orchestration3D({ t }: { t: Dictionary["orchestration"] 
     if (mode !== "3d" || !container) return;
     let cancelled = false;
 
-    // La escena (y Three.js) solo se descarga cuando la tarjeta está cerca del viewport.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -64,7 +63,6 @@ export default function Orchestration3D({ t }: { t: Dictionary["orchestration"] 
     };
   }, [mode, t.labels, t.details]);
 
-  // Ejecución automática en bucle: animación completa, pausa breve y vuelta a empezar.
   useEffect(() => {
     if (!ready) return;
     let cancelled = false;

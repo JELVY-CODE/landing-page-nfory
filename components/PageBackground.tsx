@@ -1,6 +1,5 @@
 import InteractiveNeuralBackground from "@/components/InteractiveNeuralBackground";
 
-// Fondo fijo e inmóvil: la red de nodos permanece en su lugar durante el scroll y las transiciones.
 export default function PageBackground() {
   return (
     <div aria-hidden="true" className="fixed inset-0 -z-10 overflow-hidden">

@@ -19,7 +19,6 @@ export default function MoonSky() {
     canvas.width = canvas.height = Math.round(SIZE_PX * dpr);
     let drawnPhase = -1;
 
-    // La posición se recalcula cada 30 s y la transición CSS lineal la convierte en movimiento continuo.
     const update = () => {
       const moon = getMoonState();
       root.style.transform = `translate(calc(${moon.x * 100}vw - 50%), calc(${moon.y * 100}vh - 50%))`;
@@ -36,8 +35,6 @@ export default function MoonSky() {
     return () => window.clearInterval(timer);
   }, []);
 
-  // Cielo anclado al inicio de la landing: la luna orbita la página principal, así que se queda arriba al hacer
-  // scroll y se desplaza junto con la landing al viajar al nodo 00.
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-screen overflow-hidden">
       <div ref={rootRef} data-moon="" className="moon-sky absolute top-0 left-0">

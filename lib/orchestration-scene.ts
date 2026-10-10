@@ -55,7 +55,6 @@ export type OrchestrationScene = {
 
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
 
-/** Tramo en L sobre el suelo con el codo redondeado. */
 function elbowCurve(from: THREE.Vector3, corner: THREE.Vector3, to: THREE.Vector3, radius = 0.7) {
   const path = new THREE.CurvePath<THREE.Vector3>();
   const inDir = corner.clone().sub(from);
@@ -75,7 +74,6 @@ function elbowCurve(from: THREE.Vector3, corner: THREE.Vector3, to: THREE.Vector
 
 type SceneCopy = { labels: Record<NodeId, string>; details: Record<NodeId, string> };
 
-// Dirección de la vista en reposo; la distancia se calcula para que todo el diagrama quepa en el recuadro.
 const REST_DIRECTION = new THREE.Vector3(1, 0.88, 1).normalize();
 const FIT_MARGIN = 0.92;
 const HOME_TARGET = new THREE.Vector3(0, 0.8, 0);
@@ -83,20 +81,17 @@ const MIN_DISTANCE = 14;
 
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;
 
-// La luz principal sale de la luna del cielo de la página ([data-moon]): su posición en pantalla
-// se convierte en una dirección 3D, así el reflejo sigue a la luna al hacer scroll y con la hora.
 const MOON_DEPTH_PX = 1400;
 
-// Núcleo luminoso de las tuberías: pulsos que avanzan a lo largo del tubo (uv.x = longitud).
 const FLOW_SHADER = {
-  vertexShader: /* glsl */ `
+  vertexShader: `
     varying vec2 vUv;
     void main() {
       vUv = uv;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
   `,
-  fragmentShader: /* glsl */ `
+  fragmentShader: `
     uniform vec3 uColor;
     uniform float uTime;
     uniform float uRepeat;
@@ -111,16 +106,15 @@ const FLOW_SHADER = {
   `,
 };
 
-// Rejilla del suelo dibujada en GPU, con desvanecido radial hacia los bordes.
 const GRID_SHADER = {
-  vertexShader: /* glsl */ `
+  vertexShader: `
     varying vec2 vPos;
     void main() {
       vPos = position.xy;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
   `,
-  fragmentShader: /* glsl */ `
+  fragmentShader: `
     uniform vec3 uColor;
     uniform float uTime;
     varying vec2 vPos;
@@ -147,7 +141,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_DPR));
   renderer.setSize(width(), height());
-  // Lienzo transparente: el diagrama flota sobre el fondo animado de la página.
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -163,7 +156,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(32, width() / height(), 0.1, 100);
-  // Puntos que deben verse: esquinas de cada bloque, incluido el espacio de su título encima.
   const fitPoints = NODES.flatMap((node) =>
     [-1, 1].flatMap((sx) =>
       [-1, 1].flatMap((sz) =>
@@ -174,7 +166,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   const probe = new THREE.PerspectiveCamera();
   const probePoint = new THREE.Vector3();
 
-  // Distancia mínima a la que todo el diagrama cabe en el recuadro, vista desde una dirección concreta.
   const fitDistance = (direction: THREE.Vector3 = REST_DIRECTION) => {
     probe.copy(camera);
     probe.aspect = width() / height();
@@ -211,10 +202,8 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   controls.enableZoom = false;
   controls.enablePan = false;
   controls.minPolarAngle = 0.45;
-  // Permite bajar la cámara bajo el suelo de cristal para ver tuberías y bases desde abajo.
   controls.maxPolarAngle = 2.15;
   controls.update();
-
 
   scene.add(new THREE.HemisphereLight(0x8b8ff8, 0x0a0a12, 0.9));
   const key = new THREE.DirectionalLight(0xffffff, 1.5);
@@ -330,7 +319,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
       }
     }
 
-    // Título en píldora + línea guía; el ancla está en el extremo inferior de la línea, sobre la tapa del bloque.
     const anchor = document.createElement("div");
     anchor.className = "absolute top-0 left-0 flex flex-col items-center";
     anchor.dataset.label = "";
@@ -386,7 +374,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   for (const link of LINKS) {
     const a = center(link.from);
     const b = center(link.to);
-    // Un retorno sin tubería propia recorre en sentido inverso el codo de la tubería de ida.
     const corner = link.pipe ? new THREE.Vector3(b.x, PIPE_Y, a.z) : new THREE.Vector3(a.x, PIPE_Y, b.z);
     const curve = elbowCurve(a, corner, b);
 
@@ -408,7 +395,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
       );
       scene.add(core);
 
-      // Bridas donde la tubería sale de cada bloque y junta metálica en el codo.
       for (const [end, toward] of [
         [a, curve.getPointAt(0.02)],
         [b, curve.getPointAt(0.98)],
@@ -547,11 +533,9 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
 
   const zoom = (factor: number) => {
     userZoomed = true;
-    // Alejar tiene como tope la vista completa del diagrama; acercar, el límite de calidad.
     zoomDistance = THREE.MathUtils.clamp(zoomDistance * factor, Math.min(MIN_DISTANCE, restDistance), restDistance);
   };
 
-  // Ctrl/⌘ + rueda (o pellizco en trackpad) para acercar: la rueda sola sigue desplazando la página.
   const onWheel = (event: WheelEvent) => {
     if (!event.ctrlKey && !event.metaKey) return;
     event.preventDefault();
@@ -565,7 +549,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
     return (raycaster.intersectObjects(hitTargets, false)[0]?.object.userData.nodeId as NodeId | undefined) ?? null;
   };
 
-  // Abierta = la fijada con clic o, si no hay ninguna fijada, la que está bajo el cursor.
   const syncLabels = () => {
     for (const [id, block] of blocks) block.label.dataset.open = String(pinned ? pinned === id : hovered === id);
     renderer.domElement.style.cursor = hovered ? "pointer" : "";
@@ -588,7 +571,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
   const onPointerDown = (event: PointerEvent) => {
     pressed = { x: event.clientX, y: event.clientY };
   };
-  // Un clic sin arrastre fija la información del nodo (o la suelta si es en el vacío).
   const onPointerUp = (event: PointerEvent) => {
     const start = pressed;
     pressed = null;
@@ -628,7 +610,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
       const boxHeight = block.anchor.offsetHeight;
       const x = THREE.MathUtils.clamp(((projected.x + 1) / 2) * w - boxWidth / 2, 6, Math.max(6, w - boxWidth - 6));
       const y = THREE.MathUtils.clamp(((1 - projected.y) / 2) * h - boxHeight, 6, Math.max(6, h - boxHeight - 6));
-      // La posición final en pantalla (recuadro + etiqueta) debe caer en un píxel físico exacto.
       const snapX = Math.round((layerBox.left + x) * dpr) / dpr - layerBox.left;
       const snapY = Math.round((layerBox.top + y) * dpr) / dpr - layerBox.top;
       block.anchor.style.transform = `translate(${snapX}px, ${snapY}px)`;
@@ -643,9 +624,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
     elapsed += delta;
     const time = elapsed;
     const ease = 1 - Math.exp(-delta * 6);
-
-
-    // "Calma": con información abierta se congela la flotación para que el texto no se mueva.
 
     gridUniforms.uTime.value = time;
     aimAtMoon();
@@ -724,7 +702,6 @@ export function createOrchestrationScene(container: HTMLElement, copy: SceneCopy
     }
 
     {
-      // El encuadre se reajusta a la orientación actual: el diagrama ocupa el máximo posible sin recortarse.
       viewDirection.copy(camera.position).sub(controls.target).normalize();
       const fit = fitDistance(viewDirection);
       zoomDistance = userZoomed ? Math.min(zoomDistance, fit) : fit;

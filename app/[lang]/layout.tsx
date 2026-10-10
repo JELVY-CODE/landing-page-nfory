@@ -39,7 +39,6 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       icon: "/images/isotipo-nfory.svg",
       apple: "/images/isotipo-nfory.svg",
     },
-    // La imagen la generan opengraph-image.tsx y twitter-image.tsx de esta misma ruta.
     openGraph: {
       title: meta.title,
       description: meta.ogDescription,
@@ -66,7 +65,6 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!hasLocale(lang)) notFound();
 
   return (
-    // Algunas extensiones del navegador inyectan atributos en <html> antes de hidratar.
     <html
       suppressHydrationWarning
       lang={lang}

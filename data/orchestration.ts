@@ -8,7 +8,6 @@ export type ProcessNode = {
   stack?: number;
 };
 
-// Coordenadas centradas en el origen: la base queda simétrica y equilibrada.
 export const NODES: ProcessNode[] = [
   { id: "ingest", cx: -6, cy: 6, h: 1.6, stack: 2 },
   { id: "agent", cx: -3.5, cy: 1.5, h: 3 },
@@ -17,7 +16,6 @@ export const NODES: ProcessNode[] = [
   { id: "erp", cx: 6, cy: -6, h: 2.2 },
 ];
 
-// Agente con RAG: la consulta a la base vectorial va y vuelve por la misma tubería.
 export const LINKS: { from: NodeId; to: NodeId; pipe: boolean }[] = [
   { from: "ingest", to: "agent", pipe: true },
   { from: "agent", to: "data", pipe: true },

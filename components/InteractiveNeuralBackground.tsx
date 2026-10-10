@@ -12,7 +12,6 @@ type NeuralNode = {
   vx: number;
   vy: number;
   radius: number;
-  /** 0 = índigo, 1 = violeta. */
   tone: number;
 };
 
@@ -31,7 +30,6 @@ const MAX_CANVAS_PIXELS = 4_000_000;
 const TONE_STEPS = 8;
 const ALPHA_STEPS = 32;
 
-// Colores precalculados: evita crear miles de strings por fotograma.
 const PALETTE = Array.from({ length: (TONE_STEPS + 1) * (ALPHA_STEPS + 1) }, (_, index) => {
   const tone = Math.floor(index / (ALPHA_STEPS + 1)) / TONE_STEPS;
   const alpha = (index % (ALPHA_STEPS + 1)) / ALPHA_STEPS;
@@ -47,8 +45,6 @@ function mixTone(tone: number, alpha: number): string {
   return PALETTE[toneIndex * (ALPHA_STEPS + 1) + alphaIndex];
 }
 
-// La escena vive a nivel de módulo: al cambiar de idioma la página se vuelve a montar, pero la red
-// continúa con los mismos nodos en lugar de generar un patrón nuevo.
 const scene: { nodes: NeuralNode[]; width: number; height: number } = { nodes: [], width: 0, height: 0 };
 
 function createNodes(width: number, height: number): NeuralNode[] {
@@ -117,7 +113,6 @@ export default function InteractiveNeuralBackground({
 
       Object.assign(scene, { nodes, width, height });
 
-      // Sin bucle activo (movimiento reducido o pestaña oculta) se dibuja un fotograma estático.
       if (frameId === null) draw();
     };
 
@@ -225,7 +220,6 @@ export default function InteractiveNeuralBackground({
     };
 
     const loop = (time: number) => {
-      // dt en frames de 60fps, acotado tras pausas largas.
       const dt = lastTime ? Math.min((time - lastTime) / (1000 / 60), 3) : 1;
       lastTime = time;
       step(dt);

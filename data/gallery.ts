@@ -1,7 +1,5 @@
 import type { GalleryItem } from "@/lib/gallery";
 
-// Servicios y casos de uso de referencia (no son proyectos entregados a clientes; la sección lo indica).
-// Cuando haya proyectos reales, añádelos aquí con sus datos y opcionalmente `image` en /public/images/.
 const rag: GalleryItem = {
   id: "rag-support",
   kind: "useCase",
@@ -274,5 +272,4 @@ const monitor: GalleryItem = {
   },
 };
 
-// Una fila de carrusel que alterna servicios y casos de uso por área.
 export const galleryRows: GalleryItem[][] = [[roadmap, rag, crm, pipeline, monitor, saas, dashboard, docs]];

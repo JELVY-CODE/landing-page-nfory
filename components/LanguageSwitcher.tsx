@@ -8,8 +8,6 @@ import { visibleAll, visibleById, visibleOne } from "@/lib/dom";
 const RESTORE_KEY = "nfory:locale-restore";
 const USER_INPUT = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
 
-// Con View Transitions el navegador mantiene una captura de la página mientras llega el idioma nuevo
-// y hace un fundido cruzado cuando el contenido ya está recolocado; esta función cierra esa espera.
 let finishTransition: (() => void) | null = null;
 const endTransition = () => {
   finishTransition?.();
@@ -17,8 +15,6 @@ const endTransition = () => {
 };
 type Restore = { id: string | null; offset: number; panel: number };
 
-// Guarda la sección visible (y su desplazamiento) para volver al mismo punto tras cambiar de idioma,
-// ya que cada idioma es otro documento y la altura del contenido cambia entre traducciones.
 function saveReading(code: Locale) {
   document.cookie = `${LOCALE_COOKIE}=${code}; path=/; max-age=31536000; samesite=lax`;
   const marker = window.innerHeight / 3;
@@ -54,9 +50,6 @@ function restoreReading() {
     if (dialog && window.location.hash === "#desarrolladores") dialog.scrollTop = panel;
   };
 
-  // Mientras el contenido nuevo se asienta (fuentes, diagrama 3D) la página se mantiene anclada a la misma
-  // sección sin scroll-snap; el fundido empieza cuando la altura se estabiliza y, si el diagrama 3D está a la
-  // vista, cuando ya está dibujado, para que nada aparezca de golpe.
   let settle = 0;
   const reveal = () => {
     observer.disconnect();
@@ -165,7 +158,6 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
                         navigate();
                       }),
                   );
-                  // Si el navegador omite la animación (p. ej. pestaña oculta) el cambio de idioma sigue igual.
                   transition.ready.catch(() => {});
                 }}
                 hrefLang={code}

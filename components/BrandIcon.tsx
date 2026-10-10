@@ -1,6 +1,5 @@
 import type { SimpleIcon } from "simple-icons";
 
-// Los logos casi negros (Next.js, Anthropic…) se pintan en claro para leerse sobre el fondo oscuro.
 const isDark = (hex: string) => {
   const value = parseInt(hex, 16);
   const luminance = 0.2126 * ((value >> 16) & 255) + 0.7152 * ((value >> 8) & 255) + 0.0722 * (value & 255);

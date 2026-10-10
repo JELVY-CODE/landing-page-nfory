@@ -6,10 +6,8 @@ type Anchor = { node: HTMLElement; y: number; scroll: number };
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
-// Velocidad con la que el punto alcanza su objetivo (1/s).
 const FOLLOW_RATE = 10;
 
-// Distancia de scroll (px) en la que un nodo atrae al punto hasta encajarlo en su círculo.
 const MAGNET_PX = 90;
 
 const smoothstep = (t: number) => t * t * (3 - 2 * t);
@@ -37,8 +35,6 @@ export default function ScrollJourney({ children }: { children: ReactNode }) {
     let height = 1;
     let frameId: number | null = null;
 
-    // Para cada nodo: su posición en la línea y el scroll exacto en el que su sección queda anclada
-    // (el mismo destino que un enlace del header), de modo que el punto se detiene justo sobre el círculo.
     const measure = () => {
       const scrollY = window.scrollY;
       const rootTop = root.getBoundingClientRect().top + scrollY;
@@ -58,7 +54,6 @@ export default function ScrollJourney({ children }: { children: ReactNode }) {
       });
     };
 
-    // Avance proporcional al scroll entre nodos consecutivos.
     const linearPosition = (scrollY: number) => {
       const first = anchors[0];
       if (scrollY <= first.scroll) {
@@ -75,7 +70,6 @@ export default function ScrollJourney({ children }: { children: ReactNode }) {
       return anchors[anchors.length - 1].y;
     };
 
-    // Cerca de un nodo, el punto es atraído hasta su centro: encaja al conectar y se suelta con suavidad.
     const tipPosition = (scrollY: number) => {
       if (!anchors.length) return 0;
       const y = linearPosition(scrollY);
@@ -87,8 +81,6 @@ export default function ScrollJourney({ children }: { children: ReactNode }) {
       return nearest.y + (y - nearest.y) * smoothstep(distance / MAGNET_PX);
     };
 
-    // El punto persigue su objetivo con suavizado exponencial: la rueda y la barra de scroll
-    // mueven el objetivo a saltos, pero el recorrido visible siempre es continuo.
     let current = 0;
     let lastTime = 0;
 

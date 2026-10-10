@@ -6,7 +6,6 @@ const INDIGO = "#6366F1";
 const VIOLET = "#8B5CF6";
 const LILAC = "#A78BFA";
 
-// Ilustraciones vectoriales ligeras (sin imágenes externas) que representan cada tipo de caso de uso.
 const VISUALS: Record<GalleryVisual, React.ReactNode> = {
   rag: (
     <>

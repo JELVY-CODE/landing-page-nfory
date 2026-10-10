@@ -8,7 +8,6 @@ import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const DEFAULT_TO = "contact@nfory.com";
-// Remitente de pruebas de Resend; en producción usar un dominio verificado (CONTACT_FROM_EMAIL).
 const DEFAULT_FROM = "NFory Web <onboarding@resend.dev>";
 
 const escapeHtml = (value: string) =>
@@ -41,7 +40,6 @@ function validate(values: ContactValues, t: Dictionary["contact"]["errors"]) {
   }
 
   if (values.date) {
-    // Margen de un día por diferencias de zona horaria.
     const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
     if (!DATE_RE.test(values.date) || Number.isNaN(Date.parse(values.date))) errors.date = t.date;
     else if (values.date < yesterday) errors.date = t.datePast;
@@ -61,7 +59,6 @@ export async function submitContact(_prevState: ContactState, formData: FormData
   const locale = hasLocale(requested) ? requested : DEFAULT_LOCALE;
   const t = getDictionary(locale).contact;
 
-  // Honeypot: solo los bots rellenan este campo.
   if (read("website")) return { status: "success" };
 
   const values: ContactValues = {
@@ -84,7 +81,6 @@ export async function submitContact(_prevState: ContactState, formData: FormData
     return { status: "error", message: t.errors.unavailable, values };
   }
 
-  // El correo interno siempre va en español, independientemente del idioma del visitante.
   const labels = getDictionary("es").contact.form;
   const service =
     values.service === "other"

@@ -5,7 +5,6 @@ import type { Locale } from "@/lib/i18n/config";
 import { site } from "@/data/site";
 import { navHref } from "@/lib/navigation";
 
-// Cache Components exige cachear la fecha para poder prerenderizar.
 async function CopyrightYear() {
   "use cache";
   return new Date().getFullYear();

@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// Cargado desde app/globals.css con `@config` (Tailwind v4).
 const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {

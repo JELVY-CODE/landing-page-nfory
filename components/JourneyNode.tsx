@@ -1,5 +1,3 @@
-// Va dentro del encabezado de una sección con `lg:pl-20`; `-left-14` lo centra sobre la línea de <ScrollJourney />,
-// que es quien lo activa (data-active) cuando el punto que recorre la línea lo alcanza.
 export default function JourneyNode({ index }: { index: string }) {
   return (
     <div

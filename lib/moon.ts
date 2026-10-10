@@ -1,13 +1,9 @@
-// Luna nueva de referencia (6 ene 2000, 18:14 UTC) y duración media del mes sinódico.
 const NEW_MOON_EPOCH = Date.UTC(2000, 0, 6, 18, 14);
 const SYNODIC_MONTH_MS = 29.530588853 * 86_400_000;
 
 export type MoonState = {
-  /** 0 = luna nueva, 0.5 = llena. */
   phase: number;
-  /** Fracción del disco iluminada (0–1). */
   illumination: number;
-  /** Posición en el viewport (0–1). */
   x: number;
   y: number;
 };
@@ -16,8 +12,6 @@ export function getMoonState(date = new Date()): MoonState {
   const phase = ((((date.getTime() - NEW_MOON_EPOCH) % SYNODIC_MONTH_MS) + SYNODIC_MONTH_MS) % SYNODIC_MONTH_MS) / SYNODIC_MONTH_MS;
   const illumination = (1 - Math.cos(2 * Math.PI * phase)) / 2;
 
-  // La luna cruza el meridiano ~50 min más tarde cada día: en luna nueva a mediodía, en llena a medianoche.
-  // El ángulo horario avanza 15°/h por la rotación de la Tierra; se proyecta en un arco del cielo de la página.
   const hours = date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
   const transit = (12 + phase * 24) % 24;
   const hourAngle = ((((hours - transit) * 15 + 540) % 360) - 180) * (Math.PI / 180);
@@ -30,7 +24,6 @@ export function getMoonState(date = new Date()): MoonState {
   };
 }
 
-/** Dibuja la luna con su fase real (sombreado del terminador y luz cenicienta). */
 export function drawMoon(canvas: HTMLCanvasElement, phase: number) {
   const size = canvas.width;
   const ctx = canvas.getContext("2d");
@@ -40,7 +33,6 @@ export function drawMoon(canvas: HTMLCanvasElement, phase: number) {
   ctx.save();
   ctx.translate(size / 2, size / 2);
 
-  // Luz cenicienta: la cara oscura sigue siendo reconocible incluso en luna nueva.
   const ashen = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.1, 0, 0, r);
   ashen.addColorStop(0, "rgba(92, 88, 140, 0.85)");
   ashen.addColorStop(1, "rgba(48, 45, 82, 0.85)");
@@ -64,7 +56,6 @@ export function drawMoon(canvas: HTMLCanvasElement, phase: number) {
   lctx.arc(0, 0, r, 0, Math.PI * 2);
   lctx.fill();
 
-  // Mares y cráteres con semilla fija: la luna es siempre la misma.
   let seed = 11;
   const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   for (let i = 0; i < 46; i++) {
@@ -82,7 +73,6 @@ export function drawMoon(canvas: HTMLCanvasElement, phase: number) {
     lctx.fill();
   }
 
-  // Zona iluminada: limbo + terminador elíptico. Creciente se ilumina por la derecha; menguante, reflejada.
   const c = Math.cos(2 * Math.PI * phase);
   lctx.globalCompositeOperation = "destination-in";
   lctx.save();

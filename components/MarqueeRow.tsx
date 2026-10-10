@@ -8,7 +8,6 @@ type MarqueeRowProps = {
   labels: { region: string; carousel: string; previous: string; next: string };
 };
 
-// Copias suficientes para cubrir siempre el ancho visible.
 const COPIES = 4;
 const SPEED_PX_PER_S = 36;
 
@@ -48,7 +47,7 @@ export default function MarqueeRow({ children, reverse = false, labels }: Marque
 
     const normalize = () => {
       if (setWidth <= 0) return;
-      offset = ((offset % setWidth) + setWidth) % setWidth - setWidth; // [-setWidth, 0)
+      offset = ((offset % setWidth) + setWidth) % setWidth - setWidth;
     };
 
     const render = () => {
@@ -108,7 +107,6 @@ export default function MarqueeRow({ children, reverse = false, labels }: Marque
     render();
 
     const onResize = () => {
-      // Re-anclar a la tarjeta centrada: escalar el offset rompería el centrado.
       const previousStep = step;
       const cardsFromCenter = previousStep > 0 ? (offset + pending - centerOffset) / previousStep : 0;
       measure();

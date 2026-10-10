@@ -8,7 +8,6 @@ const HASH = "#desarrolladores";
 const DURATION_MS = 1400;
 const EASING = "cubic-bezier(0.65, 0, 0.35, 1)";
 
-// El estado abierto/cerrado vive en el hash de la URL: se puede enlazar y el botón Atrás funciona.
 const subscribe = (callback: () => void) => {
   window.addEventListener("hashchange", callback);
   return () => window.removeEventListener("hashchange", callback);
@@ -50,7 +49,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
     if (!page || !panel || !svg) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Solo se anima un cambio real de estado: al cargar (o en el doble montaje de desarrollo) se aplica sin transición.
     const animate = previousOpen.current !== null && previousOpen.current !== open && !reduced;
     previousOpen.current = open;
     isOpenRef.current = open;
@@ -64,8 +62,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
     document.documentElement.style.overflow = open ? "hidden" : "";
     if (open) panel.scrollTop = 0;
 
-    // Al salir hacia un módulo desde el header, la landing se coloca en él antes de volver y la traza
-    // conecta el nodo 00 directamente con el nodo de ese módulo.
     const anchor = open ? null : window.location.hash ? visibleOne(`[id="${CSS.escape(window.location.hash.slice(1))}"].journey-anchor`) : null;
     if (anchor) {
       const margin = parseFloat(getComputedStyle(anchor).scrollMarginTop) || 0;
@@ -79,8 +75,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
       return;
     }
 
-    // Traza de luz entre el punto actual del recorrido y el nodo 00, recalculada en cada fotograma
-    // mientras las dos "páginas" se desplazan.
     const tip = anchor?.querySelector("[data-journey-node] > span:last-child") ?? visibleOne("[data-journey-tip]");
     const fallback = (): Point => ({ x: 0, y: window.innerHeight / 2 });
     const base = baseRef.current!;
@@ -119,7 +113,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
       if (!open) panel.style.visibility = "hidden";
       svg.style.opacity = "0";
     };
-    // Si los fotogramas se detienen (p. ej. pestaña en segundo plano), se garantiza el estado final.
     const safety = window.setTimeout(finish, DURATION_MS + 200);
     frameId = requestAnimationFrame(frame);
 
@@ -131,8 +124,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
 
   useEffect(() => () => void (document.documentElement.style.overflow = ""), []);
 
-  // La barra de scroll propia del panel estrecha su área; se compensa a la izquierda para centrar el contenido
-  // en el mismo ancho que la landing y que el nodo 00 caiga sobre la línea de nodos y el logo.
   useEffect(() => {
     const panel = panelRef.current;
     if (!panel) return;
@@ -143,8 +134,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
     return () => observer.disconnect();
   }, []);
 
-  // Los enlaces #sección se resuelven contra el elemento visible: el navegador saltaría al primero del
-  // documento, que puede pertenecer a una página de otro idioma que Next.js mantiene oculta.
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -159,7 +148,6 @@ export default function DevelopersTransition({ children, view, labels, modules }
       }
       window.history.pushState(url.hash === HASH ? { developers: true } : null, "", url.hash);
       window.dispatchEvent(new HashChangeEvent("hashchange"));
-      // Con la vista de Desarrolladores abierta, el cierre ya coloca la landing en la sección destino.
       if (url.hash !== HASH && !isOpenRef.current) visibleOne(`[id="${CSS.escape(url.hash.slice(1))}"]`)?.scrollIntoView();
     };
     document.addEventListener("click", onClick);

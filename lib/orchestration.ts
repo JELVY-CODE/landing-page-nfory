@@ -17,7 +17,6 @@ const ORIGIN = { x: 320, y: 214 };
 const SIZE = 2.4;
 const FLOOR = 8.2;
 
-// Escala ortográfica que reproduce la isometría clásica (azimut 45°, elevación ≈35.26°).
 const SCALE = UNIT * Math.cos(Math.PI / 6) / Math.SQRT1_2;
 export const ISO_ELEVATION = Math.asin(1 / Math.sqrt(3));
 export const MIN_ELEVATION = (15 * Math.PI) / 180;
@@ -57,7 +56,6 @@ export function buildScene(angle: number, elevation: number): Scene {
 
   const rotate = (x: number, y: number): Point => [x * cos - y * sin, x * sin + y * cos];
 
-  // Redondeo a décimas: servidor y navegador deben producir exactamente los mismos atributos al hidratar.
   const project = (x: number, y: number, z = 0): Point => {
     const [rx, ry] = rotate(x, y);
     return [
@@ -116,7 +114,6 @@ export function buildScene(angle: number, elevation: number): Scene {
   const edges = LINKS.map(({ from, to, pipe }): SceneEdge => {
     const a = byId(from);
     const b = byId(to);
-    // Un retorno sin tubería propia recorre en sentido inverso el codo de la tubería de ida.
     const elbow = pipe ? project(b.cx, a.cy) : project(a.cx, b.cy);
     const [p1, corner, p2] = [project(a.cx, a.cy), elbow, project(b.cx, b.cy)];
     return {

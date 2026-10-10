@@ -10,7 +10,6 @@ export const site = {
     { key: "team", href: "#desarrolladores", page: false },
     { key: "contact", href: "#contacto", page: false },
   ],
-  // Pendiente de confirmar: sustituir por las URLs reales de los perfiles de NFory.
   social: [
     { id: "linkedin", name: "LinkedIn", href: "https://www.linkedin.com/company/nfory" },
     { id: "facebook", name: "Facebook", href: "https://www.facebook.com/nfory" },

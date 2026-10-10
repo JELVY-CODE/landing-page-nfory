@@ -10,17 +10,13 @@
   color-scheme: dark;
 }
 
-/* Escala fluida: 100% en portátiles → 150% en monitores de ~2500px. */
 html {
   font-size: clamp(16px, calc(4px + 0.79vw), 24px);
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
-  /* Reserva el hueco de la barra aunque se oculte (vista de Desarrolladores): el header no se desplaza
-     y el logo sigue alineado con la línea de nodos y con el nodo 00. */
   scrollbar-gutter: stable;
 }
 
-/* Ancla de cada sección del recorrido: deja el nodo completo bajo el header, con parte de la línea visible. */
 .journey-anchor {
   scroll-margin-top: 7.5rem;
   scroll-snap-align: start;
@@ -109,7 +105,6 @@ body {
   filter: brightness(1.15);
 }
 
-/* Luna del cielo de la página: entra con un fundido y luego se desplaza de forma continua. */
 .moon-sky {
   opacity: 0;
   will-change: transform;
@@ -140,7 +135,6 @@ body {
   }
 }
 
-/* Cambio de idioma: fundido cruzado con View Transitions (o atenuado como respaldo) sin scroll-snap mientras se recoloca. */
 ::view-transition-old(root) {
   animation: locale-out 520ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }

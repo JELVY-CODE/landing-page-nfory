@@ -8,7 +8,6 @@ export const alt = "NFory · AI Engineering & Process Automation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// La fuente por defecto de las imágenes OG solo cubre alfabeto latino: el resto de idiomas usa el texto en inglés.
 const LATIN_LOCALES = new Set(["es", "en", "de"]);
 
 export function generateStaticParams() {

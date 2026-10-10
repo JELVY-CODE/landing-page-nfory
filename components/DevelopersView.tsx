@@ -22,7 +22,6 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 
-// Contenido de la vista "Desarrolladores" (nodo 00), que <DevelopersTransition /> muestra como una página aparte.
 export default function DevelopersView({ locale, t }: { locale: Locale; t: Dictionary["team"] }) {
   return (
     <section aria-labelledby="developers-title" className="pb-24 sm:pb-32">
