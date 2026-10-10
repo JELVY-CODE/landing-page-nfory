@@ -201,8 +201,6 @@ const zh: Dictionary = {
     follow: "关注我们",
   },
   team: {
-    metaTitle: "开发者 | NFory",
-    metaDescription: "了解 NFory 团队、驱动我们智能体的 AI 模型，以及我们使用的技术。",
     eyebrow: "开发者",
     title: "每一次连接背后的人与技术",
     subtitle: "一支融合人工智能、产品开发与自动化的工程团队，拥有为生产环境精选的技术栈。",
@@ -227,8 +225,6 @@ const zh: Dictionary = {
       "界面与架构设计",
       "工程任务自动化"
     ],
-    ctaTitle: "一起构建下一个节点吧？",
-    back: "返回首页"
   },
 };
 

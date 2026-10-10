@@ -203,8 +203,6 @@ const en: Dictionary = {
     follow: "Follow us",
   },
   team: {
-    metaTitle: "Developers | NFory",
-    metaDescription: "Meet the NFory team, the AI models that power our agents and the technologies we build with.",
     eyebrow: "Developers",
     title: "The people and technology behind every connection",
     subtitle: "An engineering team that combines artificial intelligence, product development and automation, with a stack chosen for production.",
@@ -229,8 +227,6 @@ const en: Dictionary = {
       "Interface and architecture design",
       "Engineering task automation"
     ],
-    ctaTitle: "Shall we build the next node together?",
-    back: "Back to home"
   },
 };
 

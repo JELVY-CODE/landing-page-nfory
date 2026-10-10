@@ -201,8 +201,6 @@ const es = {
     follow: "Síguenos",
   },
   team: {
-    metaTitle: "Desarrolladores | NFory",
-    metaDescription: "Conoce al equipo de NFory, los modelos de IA que impulsan nuestros agentes y las tecnologías con las que construimos.",
     eyebrow: "Desarrolladores",
     title: "Las personas y la tecnología detrás de cada conexión",
     subtitle: "Un equipo de ingeniería que combina inteligencia artificial, desarrollo de producto y automatización, con un stack elegido para producción.",
@@ -227,8 +225,6 @@ const es = {
       "Diseño de interfaces y arquitectura",
       "Automatización de tareas de ingeniería"
     ],
-    ctaTitle: "¿Construimos juntos el siguiente nodo?",
-    back: "Volver al inicio"
   },
 };
 

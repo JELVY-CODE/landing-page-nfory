@@ -7,7 +7,7 @@ export const site = {
     { key: "about", href: "#nosotros", page: false },
     { key: "services", href: "#servicios", page: false },
     { key: "projects", href: "#proyectos", page: false },
-    { key: "team", href: "/developers", page: true },
+    { key: "team", href: "#desarrolladores", page: false },
     { key: "contact", href: "#contacto", page: false },
   ],
   // Pendiente de confirmar: sustituir por las URLs reales de los perfiles de NFory.

@@ -203,8 +203,6 @@ const ko: Dictionary = {
     follow: "팔로우하기",
   },
   team: {
-    metaTitle: "개발자 | NFory",
-    metaDescription: "NFory 팀과 에이전트를 움직이는 AI 모델, 그리고 우리가 사용하는 기술을 소개합니다.",
     eyebrow: "개발자",
     title: "모든 연결 뒤에 있는 사람과 기술",
     subtitle: "인공지능, 제품 개발, 자동화를 결합하고 프로덕션을 위해 선택한 기술 스택을 갖춘 엔지니어링 팀입니다.",
@@ -229,8 +227,6 @@ const ko: Dictionary = {
       "인터페이스 및 아키텍처 설계",
       "엔지니어링 작업 자동화"
     ],
-    ctaTitle: "다음 노드를 함께 만들어 볼까요?",
-    back: "홈으로 돌아가기"
   },
 };
 

@@ -9,7 +9,7 @@ export default function ContactSection({ locale, t }: { locale: Locale; t: Dicti
     <section className="px-4 pb-24 sm:px-6 sm:pb-32">
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16 lg:pl-20">
         <div id="contacto" className="journey-anchor relative">
-          <JourneyNode index="04" />
+          <JourneyNode index="05" />
           <p className="font-mono text-xs tracking-wide text-indigo-400 uppercase">{t.eyebrow}</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">{t.title}</h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400">{t.description}</p>

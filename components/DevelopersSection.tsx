@@ -1,71 +1,37 @@
-import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import BrandIcon from "@/components/BrandIcon";
-import ButtonLink from "@/components/ButtonLink";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import PageBackground from "@/components/PageBackground";
+import JourneyNode from "@/components/JourneyNode";
+import SlideIn from "@/components/SlideIn";
 import { SOCIAL_ICONS } from "@/components/SocialLinks";
-import { localize } from "@/lib/gallery";
-import { LOCALES, hasLocale } from "@/lib/i18n/config";
-import { getDictionary } from "@/lib/i18n/dictionaries";
 import { aiModels, teamMembers } from "@/data/team";
-
-export async function generateMetadata({ params }: PageProps<"/[lang]/developers">): Promise<Metadata> {
-  const { lang } = await params;
-  if (!hasLocale(lang)) return {};
-  const { team } = getDictionary(lang);
-  return {
-    title: team.metaTitle,
-    description: team.metaDescription,
-    alternates: {
-      canonical: `/${lang}/developers`,
-      languages: Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}/developers`])),
-    },
-  };
-}
+import { localize } from "@/lib/gallery";
+import type { Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/dictionaries";
 
 const card = "rounded-2xl border border-white/[0.08] bg-zinc-900/40 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.06)] backdrop-blur-xl";
 const eyebrow = "font-mono text-xs tracking-wide text-indigo-400 uppercase";
-const heading = "mt-3 text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl";
+const subheading = "mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl";
 const bar = "block rounded-full bg-white/[0.06]";
 
-export default async function TeamPage({ params }: PageProps<"/[lang]/developers">) {
-  const { lang } = await params;
-  if (!hasLocale(lang)) notFound();
-  const dict = getDictionary(lang);
-  const t = dict.team;
-  const home = `/${lang}`;
-
+export default function DevelopersSection({ locale, t }: { locale: Locale; t: Dictionary["team"] }) {
   return (
-    <>
-      <PageBackground />
-      <Navbar locale={lang} t={dict.nav} basePath={home} />
+    <section className="overflow-x-clip px-4 pb-24 sm:px-6 sm:pb-32">
+      <div className="mx-auto max-w-6xl lg:pl-20">
+        <div id="desarrolladores" className="journey-anchor relative max-w-2xl">
+          <JourneyNode index="04" />
+          <p className={eyebrow}>{t.eyebrow}</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">{t.title}</h2>
+          <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">{t.subtitle}</p>
+        </div>
 
-      <main className="px-4 sm:px-6">
-        <header className="mx-auto max-w-6xl pt-36 pb-20 sm:pt-44">
-          <a href={home} className="inline-flex items-center gap-1.5 text-sm text-zinc-500 transition-colors duration-150 hover:text-zinc-200">
-            <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 8H3m4-4L3 8l4 4" />
-            </svg>
-            {t.back}
-          </a>
-          <p className={`${eyebrow} mt-8`}>{t.eyebrow}</p>
-          <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] font-semibold tracking-[-0.035em] text-balance text-white sm:text-6xl">{t.title}</h1>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-pretty text-zinc-400 sm:text-lg">{t.subtitle}</p>
-        </header>
-
-        <section aria-labelledby="team-members" className="mx-auto max-w-6xl pb-24 sm:pb-32">
+        <SlideIn className="mt-14">
           <p className={eyebrow}>{t.membersEyebrow}</p>
-          <h2 id="team-members" className={heading}>
-            {t.membersTitle}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">{t.membersSubtitle}</p>
+          <h3 className={subheading}>{t.membersTitle}</h3>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{t.membersSubtitle}</p>
 
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member) => {
-              const role = localize(member.role, lang);
+              const role = localize(member.role, locale);
               return (
                 <li key={member.id} aria-label={member.name || t.memberEmpty} className={`${card} p-6`}>
                   <div className="relative size-20 overflow-hidden rounded-full border border-white/10 bg-zinc-900">
@@ -82,11 +48,7 @@ export default async function TeamPage({ params }: PageProps<"/[lang]/developers
                   ) : (
                     <span aria-hidden="true" className={`${bar} mt-6 h-4 w-2/3`} />
                   )}
-                  {role ? (
-                    <p className="mt-1 text-sm text-zinc-400">{role}</p>
-                  ) : (
-                    <span aria-hidden="true" className={`${bar} mt-3 h-2.5 w-1/2`} />
-                  )}
+                  {role ? <p className="mt-1 text-sm text-zinc-400">{role}</p> : <span aria-hidden="true" className={`${bar} mt-3 h-2.5 w-1/2`} />}
                   <div className="mt-5 flex gap-1">
                     {(["linkedin", "github"] as const).map((network) => {
                       const href = member[network];
@@ -117,16 +79,14 @@ export default async function TeamPage({ params }: PageProps<"/[lang]/developers
               );
             })}
           </ul>
-        </section>
+        </SlideIn>
 
-        <section aria-labelledby="team-agents" className="mx-auto max-w-6xl pb-24 sm:pb-32">
+        <SlideIn delay={0.18} className="mt-16">
           <p className={eyebrow}>{t.agentsEyebrow}</p>
-          <h2 id="team-agents" className={heading}>
-            {t.agentsTitle}
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-400">{t.agentsSubtitle}</p>
+          <h3 className={subheading}>{t.agentsTitle}</h3>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">{t.agentsSubtitle}</p>
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-2">
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {aiModels.map((model) => (
               <article key={model.id} className={`${card} flex flex-col p-6 sm:p-8`}>
                 <div className="flex items-start gap-4">
@@ -135,7 +95,7 @@ export default async function TeamPage({ params }: PageProps<"/[lang]/developers
                   </div>
                   <div className="min-w-0">
                     <p className="font-mono text-xs tracking-wide text-violet-400 uppercase">{t[model.copy.role]}</p>
-                    <h3 className="mt-1 text-xl font-semibold tracking-tight text-white sm:text-2xl">{model.name}</h3>
+                    <h4 className="mt-1 text-xl font-semibold tracking-tight text-white sm:text-2xl">{model.name}</h4>
                     <p className="mt-1 flex items-center gap-2 text-sm text-zinc-400">
                       <BrandIcon icon={model.vendor} className="size-3.5" />
                       {model.vendor.title}
@@ -154,15 +114,8 @@ export default async function TeamPage({ params }: PageProps<"/[lang]/developers
               </article>
             ))}
           </div>
-        </section>
-
-        <section className={`${card} mx-auto mb-24 flex max-w-6xl flex-col items-center gap-6 px-6 py-14 text-center sm:mb-32`}>
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-[-0.03em] text-balance text-white sm:text-4xl">{t.ctaTitle}</h2>
-          <ButtonLink href={`${home}#contacto`}>{dict.nav.cta}</ButtonLink>
-        </section>
-      </main>
-
-      <Footer locale={lang} t={dict} basePath={home} />
-    </>
+        </SlideIn>
+      </div>
+    </section>
   );
 }

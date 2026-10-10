@@ -203,8 +203,6 @@ const de: Dictionary = {
     follow: "Folgen Sie uns",
   },
   team: {
-    metaTitle: "Entwickler | NFory",
-    metaDescription: "Lernen Sie das Team von NFory kennen, die KI-Modelle hinter unseren Agenten und die Technologien, mit denen wir bauen.",
     eyebrow: "Entwickler",
     title: "Die Menschen und die Technologie hinter jeder Verbindung",
     subtitle: "Ein Engineering-Team, das künstliche Intelligenz, Produktentwicklung und Automatisierung verbindet – mit einem für den Produktivbetrieb gewählten Stack.",
@@ -229,8 +227,6 @@ const de: Dictionary = {
       "Interface- und Architekturdesign",
       "Automatisierung von Engineering-Aufgaben"
     ],
-    ctaTitle: "Bauen wir gemeinsam den nächsten Knoten?",
-    back: "Zur Startseite"
   },
 };
 

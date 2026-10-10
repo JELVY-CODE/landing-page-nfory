@@ -36,7 +36,7 @@ Copia `.env.example` a `.env.local` y completa los valores:
 
 ```
 app/
-  [lang]/            Páginas por idioma: landing (/) y desarrolladores (/developers)
+  [lang]/            Landing por idioma
   actions/           Server Action del formulario de contacto
   globals.css
 components/          Componentes de la interfaz

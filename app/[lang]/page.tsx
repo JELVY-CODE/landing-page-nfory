@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
+import DevelopersSection from "@/components/DevelopersSection";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HybridModel from "@/components/HybridModel";
@@ -30,6 +31,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <ServicesBento t={dict.services} orchestration={dict.orchestration} />
           <HybridModel t={dict.model} />
           <ProjectsGallery locale={lang} t={dict.projects} />
+          <DevelopersSection locale={lang} t={dict.team} />
           <ContactSection locale={lang} t={dict.contact} />
         </ScrollJourney>
       </main>
