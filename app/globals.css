@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+/* Escala fluida: 100% en portátiles → 150% en monitores de ~2500px. */
+html {
+  font-size: clamp(16px, calc(4px + 0.79vw), 24px);
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+/* Ancla de cada sección del recorrido: deja el nodo completo bajo el header, con parte de la línea visible. */
+.journey-anchor {
+  scroll-margin-top: 7.5rem;
+  scroll-snap-align: start;
+}
+
+body {
+  background-color: #09090b;
+  color: #fafafa;
+}
+
+::selection {
+  background-color: rgb(99 102 241 / 0.35);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 700ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.mobile-menu-panel {
+  animation: menu-in 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes popover-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+.popover-in {
+  animation: popover-in 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes iso-float {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes iso-flow {
+  to {
+    stroke-dashoffset: -17;
+  }
+}
+
+.iso-float {
+  animation: iso-float 5s ease-in-out infinite alternate;
+}
+
+.iso-flow {
+  stroke-dasharray: 3 14;
+  animation: iso-flow 1.4s linear infinite;
+}
+
+.iso-top,
+.iso-led {
+  transition: fill 400ms ease;
+}
+
+.iso-node {
+  transition: filter 200ms ease;
+}
+
+.iso-node:hover {
+  filter: brightness(1.15);
+}
+
+/* Luna del cielo de la página: entra con un fundido y luego se desplaza de forma continua. */
+.moon-sky {
+  opacity: 0;
+  will-change: transform;
+}
+
+.moon-sky-ready {
+  transition:
+    transform 30s linear,
+    opacity 1.2s ease;
+}
+
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .rise-in,
+  .mobile-menu-panel,
+  .popover-in,
+  .iso-float,
+  .iso-flow {
+    animation: none;
+  }
+}
