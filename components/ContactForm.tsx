@@ -13,7 +13,7 @@ import { site } from "@/data/site";
 import { turnstileSiteKey } from "@/lib/turnstile";
 
 const control =
-  "w-full rounded-xl border border-white/10 bg-zinc-950/60 px-4 text-[0.9375rem] text-white placeholder:text-zinc-600 " +
+  "w-full rounded-xl border border-white/10 bg-zinc-950/60 px-4 text-[0.9375rem] text-white placeholder:text-[#8B8B94] " +
   "transition-[border-color,box-shadow] duration-150 outline-none " +
   "focus:border-indigo-500/60 focus:ring-4 focus:ring-indigo-500/15 " +
   "aria-invalid:border-red-400/60 aria-invalid:focus:ring-red-400/15";
@@ -33,7 +33,7 @@ function Field({ id, label, optionalLabel, error, className = "", children }: Fi
     <div className={className}>
       <label htmlFor={id} className="mb-2 flex items-baseline justify-between text-sm font-medium text-zinc-300">
         {label}
-        {optionalLabel && <span className="text-xs font-normal text-zinc-600">{optionalLabel}</span>}
+        {optionalLabel && <span className="text-xs font-normal text-[#8B8B94]">{optionalLabel}</span>}
       </label>
       {children}
       {error && (
@@ -158,7 +158,7 @@ export default function ContactForm({ locale, t }: { locale: Locale; t: Dictiona
       {turnstileSiteKey && <TurnstileWidget siteKey={turnstileSiteKey} locale={locale} resetKey={state} />}
 
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <p aria-live="polite" className={`text-sm ${state.status === "error" ? "text-red-300" : "text-zinc-500"}`}>
+        <p aria-live="polite" className={`text-sm ${state.status === "error" ? "text-red-300" : "text-[#8B8B94]"}`}>
           {state.status === "error" && state.message ? (
             <>
               {state.message}{" "}
@@ -176,7 +176,7 @@ export default function ContactForm({ locale, t }: { locale: Locale; t: Dictiona
           type="submit"
           disabled={pending}
           className={
-            "inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-indigo-500 px-6 text-[0.9375rem] font-medium text-white " +
+            "inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-full bg-[#5D5FEF] px-6 text-[0.9375rem] font-medium text-white " +
             "shadow-[0_0_0_1px_rgb(255_255_255/0.08)_inset,0_8px_24px_-8px_rgb(99_102_241/0.6)] " +
             "transition-[scale,background-color,opacity] duration-150 ease-out-strong hover:bg-indigo-600 active:scale-[0.97] " +
             "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 disabled:cursor-wait disabled:opacity-70"

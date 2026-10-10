@@ -73,7 +73,7 @@ export default function DateField({ id, name, locale, defaultValue = "", placeho
         onClick={() => setOpen((current) => !current)}
         className={`${className} flex h-11 items-center justify-between gap-3 text-left ${invalid ? "border-red-400/60 focus:ring-red-400/15" : ""}`}
       >
-        <span className={selected ? "truncate text-white" : "truncate text-zinc-600"}>{label}</span>
+        <span className={selected ? "truncate text-white" : "truncate text-[#8B8B94]"}>{label}</span>
         <svg aria-hidden="true" viewBox="0 0 16 16" className="size-4 shrink-0 text-zinc-500" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round">
           <rect x="2.25" y="3" width="11.5" height="10.75" rx="2" />
           <path d="M2.25 6.5h11.5M5.5 1.75v2.5M10.5 1.75v2.5" />

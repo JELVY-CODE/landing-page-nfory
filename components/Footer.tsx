@@ -12,7 +12,7 @@ async function CopyrightYear() {
   return new Date().getFullYear();
 }
 
-const linkClass = "rounded-full px-3 py-1.5 text-sm text-zinc-500 transition-colors duration-150 hover:text-zinc-200";
+const linkClass = "rounded-full px-3 py-1.5 text-sm text-[#8B8B94] transition-colors duration-150 hover:text-zinc-200";
 
 type FooterProps = { locale: Locale; t: Dictionary; basePath?: string };
 
@@ -39,7 +39,7 @@ export default function Footer({ locale, t, basePath = "" }: FooterProps) {
         </div>
         <div className="mt-6 flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-1">
-            <p className="text-sm text-zinc-500 sm:mr-2">
+            <p className="text-sm text-[#8B8B94] sm:mr-2">
               © <CopyrightYear /> {site.name}. {t.footer.rights}
             </p>
             <a href={`/${locale}/privacidad`} className={linkClass}>

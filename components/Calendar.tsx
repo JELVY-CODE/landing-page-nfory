@@ -44,13 +44,13 @@ export default function Calendar({ locale, selected, onSelect }: CalendarProps) 
           "flex size-9 items-center justify-center rounded-lg text-zinc-400 transition-colors duration-150 hover:bg-white/[0.06] hover:text-white disabled:pointer-events-none disabled:opacity-25",
         chevron: "size-4 fill-current",
         month_grid: "border-collapse",
-        weekday: "size-10 pb-1 font-mono text-[11px] font-normal text-zinc-500 uppercase",
+        weekday: "size-10 pb-1 font-mono text-[11px] font-normal text-[#8B8B94] uppercase",
         day: "p-0.5 text-center",
         day_button:
           "relative flex size-9 items-center justify-center rounded-lg tabular-nums transition-[background-color,color,scale] duration-150 ease-out-strong " +
           "hover:bg-indigo-500/15 hover:text-white active:scale-95 focus-visible:outline-2 focus-visible:outline-violet-500",
         selected:
-          "[&>button]:bg-indigo-500 [&>button]:text-white [&>button]:shadow-[0_0_20px_-4px_rgb(99_102_241/0.9)] [&>button]:hover:bg-indigo-500",
+          "[&>button]:bg-[#5D5FEF] [&>button]:text-white [&>button]:shadow-[0_0_20px_-4px_rgb(99_102_241/0.9)] [&>button]:hover:bg-[#5D5FEF]",
         today:
           "[&>button]:font-semibold [&>button]:text-violet-300 [&>button]:after:absolute [&>button]:after:bottom-1 [&>button]:after:size-1 [&>button]:after:rounded-full [&>button]:after:bg-violet-400",
         outside: "[&>button]:text-zinc-700",

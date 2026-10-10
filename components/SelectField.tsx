@@ -94,7 +94,7 @@ export default function SelectField({ id, name, options, placeholder, defaultVal
         onKeyDown={onKeyDown}
         className={`${className} flex h-11 items-center justify-between gap-3 text-left`}
       >
-        <span className={selected ? "truncate text-white" : "truncate text-zinc-600"}>{selected?.label ?? placeholder}</span>
+        <span className={selected ? "truncate text-white" : "truncate text-[#8B8B94]"}>{selected?.label ?? placeholder}</span>
         <svg
           aria-hidden="true"
           viewBox="0 0 16 16"

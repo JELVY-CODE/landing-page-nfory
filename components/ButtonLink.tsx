@@ -16,7 +16,7 @@ const base =
 
 const variants = {
   primary:
-    "bg-indigo-500 text-white shadow-[0_0_0_1px_rgb(255_255_255/0.08)_inset,0_8px_24px_-8px_rgb(99_102_241/0.6)] " +
+    "bg-[#5D5FEF] text-white shadow-[0_0_0_1px_rgb(255_255_255/0.08)_inset,0_8px_24px_-8px_rgb(99_102_241/0.6)] " +
     "hover:bg-indigo-600 hover:shadow-[0_0_0_1px_rgb(255_255_255/0.12)_inset,0_10px_32px_-8px_rgb(139_92_246/0.7)]",
   secondary:
     "border border-white/10 bg-white/[0.03] text-zinc-200 backdrop-blur-md " +

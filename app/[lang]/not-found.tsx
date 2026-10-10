@@ -26,7 +26,7 @@ export default function NotFound() {
         <a
           href={`/${locale}`}
           className={
-            "mt-8 inline-flex h-11 items-center justify-center rounded-full bg-indigo-500 px-6 text-[0.9375rem] font-medium text-white " +
+            "mt-8 inline-flex h-11 items-center justify-center rounded-full bg-[#5D5FEF] px-6 text-[0.9375rem] font-medium text-white " +
             "transition-[background-color,scale] duration-150 ease-out-strong hover:bg-indigo-600 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
           }
         >

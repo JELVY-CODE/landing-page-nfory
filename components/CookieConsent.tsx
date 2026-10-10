@@ -82,7 +82,7 @@ export default function CookieConsent({ t, privacyHref }: { t: Dictionary["conse
         <button
           type="button"
           onClick={() => choose("granted")}
-          className="rounded-full bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition-[background-color,scale] duration-150 ease-out-strong hover:bg-indigo-400 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+          className="rounded-full bg-[#5D5FEF] px-4 py-2 text-sm font-medium text-white transition-[background-color,scale] duration-150 ease-out-strong hover:bg-indigo-600 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
         >
           {t.accept}
         </button>

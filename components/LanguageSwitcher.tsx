@@ -112,7 +112,7 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
     <div ref={rootRef} className="relative">
       <button
         type="button"
-        aria-label={label}
+        aria-label={`${label}: ${locale.toUpperCase()}`}
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
@@ -172,7 +172,7 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
                 }
               >
                 {LOCALE_NAMES[code]}
-                <span className="font-mono text-[11px] text-zinc-500 uppercase">{code}</span>
+                <span className="font-mono text-[11px] text-[#8B8B94] uppercase">{code}</span>
               </a>
             </li>
           ))}

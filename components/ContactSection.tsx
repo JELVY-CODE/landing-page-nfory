@@ -28,11 +28,11 @@ export default function ContactSection({ locale, t }: { locale: Locale; t: Dicti
             ))}
           </ol>
 
-          <p className="mt-10 text-sm text-zinc-500">
+          <p className="mt-10 text-sm text-[#8B8B94]">
             {t.directEmail}{" "}
             <a
               href={`mailto:${site.contactEmail}`}
-              className="text-indigo-300 underline-offset-4 transition-colors duration-150 hover:text-indigo-200 hover:underline"
+              className="text-indigo-300 underline underline-offset-4 transition-colors duration-150 hover:text-indigo-200"
             >
               {site.contactEmail}
             </a>
