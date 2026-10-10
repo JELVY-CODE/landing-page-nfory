@@ -18,7 +18,8 @@ export default function BrandLogo({ size = "md", className = "" }: BrandLogoProp
         alt=""
         width={297}
         height={297}
-        priority={size === "lg"}
+        preload={size === "lg"}
+        fetchPriority={size === "lg" ? "high" : undefined}
         className={sizes[size].icon}
       />
       <span className={`${sizes[size].text} font-semibold tracking-[-0.035em] text-white`}>NFory</span>
