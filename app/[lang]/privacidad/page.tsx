@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import PageBackground from "@/components/PageBackground";
 import { PRIVACY_UPDATED, privacy } from "@/data/legal/privacy";
 import { site } from "@/data/site";
-import { LOCALES, hasLocale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, LOCALES, hasLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/privacidad">): Promise<Metadata> {
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/privacidad
     description: content.metaDescription,
     alternates: {
       canonical: `/${lang}/privacidad`,
-      languages: Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}/privacidad`])),
+      languages: { ...Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}/privacidad`])), "x-default": `/${DEFAULT_LOCALE}/privacidad` },
     },
     openGraph: { title: `${content.title} · ${site.name}`, description: content.metaDescription, url: `https://${site.domain}/${lang}/privacidad` },
   };

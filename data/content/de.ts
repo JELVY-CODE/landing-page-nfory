@@ -4,7 +4,7 @@ const de: Dictionary = {
   meta: {
     title: "NFory | KI-Engineering & Prozessautomatisierung",
     description:
-      "NFory ist ein Beratungsunternehmen, das KI-Agenten, maßgeschneiderte Systeme und Prozessorchestrierung entwickelt und integriert, um die Abläufe Ihres Unternehmens zu verbinden.",
+      "NFory ist eine Beratung für KI-Agenten, maßgeschneiderte Systeme und Prozessorchestrierung – wir verbinden die Abläufe Ihres Unternehmens.",
     ogDescription: "Beratung für KI-Engineering und Prozessautomatisierung: eigene SaaS-Plattform und B2B-Beratung.",
   },
   nav: {

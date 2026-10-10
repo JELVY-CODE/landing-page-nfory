@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import Analytics, { analyticsEnabled } from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { LOCALES, OG_LOCALES, hasLocale } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE, LOCALES, OG_LOCALES, hasLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import "../globals.css";
 
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     keywords: ["NFory", "inteligencia artificial", "AI engineering", "automatización de procesos", "process automation", "RAG", "agentes de IA", "AI agents", "consultoría"],
     alternates: {
       canonical: `/${lang}`,
-      languages: Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}`])),
+      languages: { ...Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}`])), "x-default": `/${DEFAULT_LOCALE}` },
     },
     icons: {
       icon: { url: "/images/favicon-nfory.svg?v=7", type: "image/svg+xml" },
