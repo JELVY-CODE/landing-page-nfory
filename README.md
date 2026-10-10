@@ -29,7 +29,7 @@ Copia `.env.example` a `.env.local` y completa los valores:
 | Variable | Descripción |
 | --- | --- |
 | `RESEND_API_KEY` | API key de Resend. Sin ella el formulario muestra un aviso y no envía correos. |
-| `CONTACT_TO_EMAIL` | Destinatario de las solicitudes (por defecto `support@nfory.com`). |
+| `CONTACT_TO_EMAIL` | Destinatario de las solicitudes (por defecto `contact@nfory.com`). |
 | `CONTACT_FROM_EMAIL` | Remitente. Requiere un dominio verificado en Resend (p. ej. `NFory <web@nfory.com>`). |
 
 ## Estructura

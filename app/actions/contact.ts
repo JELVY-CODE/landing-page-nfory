@@ -7,7 +7,7 @@ import { getDictionary, type Dictionary } from "@/lib/i18n/dictionaries";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
-const DEFAULT_TO = "support@nfory.com";
+const DEFAULT_TO = "contact@nfory.com";
 // Remitente de pruebas de Resend; en producción usar un dominio verificado (CONTACT_FROM_EMAIL).
 const DEFAULT_FROM = "NFory Web <onboarding@resend.dev>";
 
