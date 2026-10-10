@@ -31,6 +31,7 @@ Copia `.env.example` a `.env.local` y completa los valores:
 | `RESEND_API_KEY` | API key de Resend. Sin ella el formulario muestra un aviso y no envía correos. |
 | `CONTACT_TO_EMAIL` | Destinatario de las solicitudes (por defecto `contact@nfory.com`). |
 | `CONTACT_FROM_EMAIL` | Remitente. Requiere un dominio verificado en Resend (p. ej. `NFory <web@nfory.com>`). |
+| `NEXT_PUBLIC_GA_ID` | ID de medición de Google Analytics 4 (`G-XXXXXXXXXX`). Activa Analytics con Consent Mode v2 y el aviso de cookies. |
 
 ## Estructura
 

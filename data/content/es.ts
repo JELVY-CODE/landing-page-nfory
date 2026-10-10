@@ -201,6 +201,12 @@ const es = {
     rights: "Todos los derechos reservados.",
     follow: "Síguenos",
   },
+  consent: {
+    label: "Preferencias de cookies",
+    message: "Usamos cookies de analítica para entender cómo se usa el sitio y mejorarlo. Solo se activan si las aceptas.",
+    accept: "Aceptar",
+    reject: "Rechazar",
+  },
   team: {
     back: "Volver",
     eyebrow: "Desarrolladores",

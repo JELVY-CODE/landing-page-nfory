@@ -203,6 +203,12 @@ const en: Dictionary = {
     rights: "All rights reserved.",
     follow: "Follow us",
   },
+  consent: {
+    label: "Cookie preferences",
+    message: "We use analytics cookies to understand how the site is used and improve it. They're only enabled if you accept.",
+    accept: "Accept",
+    reject: "Decline",
+  },
   team: {
     back: "Back",
     eyebrow: "Developers",

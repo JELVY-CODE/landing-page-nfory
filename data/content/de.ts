@@ -203,6 +203,12 @@ const de: Dictionary = {
     rights: "Alle Rechte vorbehalten.",
     follow: "Folgen Sie uns",
   },
+  consent: {
+    label: "Cookie-Einstellungen",
+    message: "Wir verwenden Analyse-Cookies, um die Nutzung der Website zu verstehen und sie zu verbessern. Sie werden nur aktiviert, wenn Sie zustimmen.",
+    accept: "Akzeptieren",
+    reject: "Ablehnen",
+  },
   team: {
     back: "Zurück",
     eyebrow: "Entwickler",

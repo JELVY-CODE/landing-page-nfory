@@ -203,6 +203,12 @@ const ko: Dictionary = {
     rights: "모든 권리 보유.",
     follow: "팔로우하기",
   },
+  consent: {
+    label: "쿠키 설정",
+    message: "사이트 이용 방식을 파악하고 개선하기 위해 분석용 쿠키를 사용합니다. 동의하신 경우에만 활성화됩니다.",
+    accept: "동의",
+    reject: "거부",
+  },
   team: {
     back: "돌아가기",
     eyebrow: "개발자",

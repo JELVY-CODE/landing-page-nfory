@@ -203,6 +203,12 @@ const ja: Dictionary = {
     rights: "無断転載を禁じます。",
     follow: "フォローする",
   },
+  consent: {
+    label: "Cookie の設定",
+    message: "サイトの利用状況を把握し改善するために分析用 Cookie を使用します。同意いただいた場合のみ有効になります。",
+    accept: "同意する",
+    reject: "拒否する",
+  },
   team: {
     back: "戻る",
     eyebrow: "開発者",

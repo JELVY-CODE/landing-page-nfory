@@ -201,6 +201,12 @@ const zh: Dictionary = {
     rights: "保留所有权利。",
     follow: "关注我们",
   },
+  consent: {
+    label: "Cookie 偏好",
+    message: "我们使用分析 Cookie 来了解网站的使用情况并加以改进，仅在您同意后启用。",
+    accept: "接受",
+    reject: "拒绝",
+  },
   team: {
     back: "返回",
     eyebrow: "开发者",

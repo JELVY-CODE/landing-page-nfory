@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
+import Analytics, { analyticsEnabled } from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
 import { LOCALES, OG_LOCALES, hasLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import "../globals.css";
@@ -70,7 +72,11 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       lang={lang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-zinc-950 font-sans text-zinc-50">{children}</body>
+      <body className="min-h-full bg-zinc-950 font-sans text-zinc-50">
+        {children}
+        {analyticsEnabled && <CookieConsent t={getDictionary(lang).consent} />}
+        <Analytics />
+      </body>
     </html>
   );
 }
