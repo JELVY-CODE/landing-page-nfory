@@ -96,6 +96,7 @@ export default function Orchestration3D({ t }: { t: Dictionary["orchestration"] 
         ref={containerRef}
         role="img"
         aria-label={t.ariaLabel}
+        data-scene-pending={ready ? undefined : ""}
         className="relative aspect-[16/11] w-full cursor-grab touch-pan-y overflow-hidden active:cursor-grabbing"
       >
         {!ready && <div className="absolute inset-0 animate-pulse bg-[radial-gradient(ellipse_at_center,rgb(99_102_241/0.12),transparent_65%)]" />}

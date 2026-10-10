@@ -54,8 +54,9 @@ function restoreReading() {
     if (dialog && window.location.hash === "#desarrolladores") dialog.scrollTop = panel;
   };
 
-  // Mientras el contenido nuevo se asienta (fuentes, diagrama 3D) la página queda atenuada, sin scroll-snap,
-  // y se mantiene anclada a la misma sección; luego reaparece con un fundido.
+  // Mientras el contenido nuevo se asienta (fuentes, diagrama 3D) la página se mantiene anclada a la misma
+  // sección sin scroll-snap; el fundido empieza cuando la altura se estabiliza y, si el diagrama 3D está a la
+  // vista, cuando ya está dibujado, para que nada aparezca de golpe.
   let settle = 0;
   const reveal = () => {
     observer.disconnect();
@@ -66,14 +67,23 @@ function restoreReading() {
     endTransition();
     requestAnimationFrame(() => delete root.dataset.localeSwitching);
   };
+  const sceneLoading = () =>
+    visibleAll("[data-scene-pending]").some((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    });
+  const trySettle = () => {
+    if (sceneLoading()) settle = window.setTimeout(trySettle, 80);
+    else requestAnimationFrame(() => requestAnimationFrame(reveal));
+  };
   const onResize = () => {
     apply();
     window.clearTimeout(settle);
-    settle = window.setTimeout(reveal, 150);
+    settle = window.setTimeout(trySettle, 150);
   };
   const observer = new ResizeObserver(onResize);
   observer.observe(document.body);
-  const limit = window.setTimeout(reveal, 1500);
+  const limit = window.setTimeout(reveal, 2200);
   for (const type of USER_INPUT) window.addEventListener(type, reveal, { passive: true });
   onResize();
 }

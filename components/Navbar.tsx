@@ -43,7 +43,7 @@ export default function Navbar({ locale, t, basePath = "" }: NavbarProps) {
           href={`${basePath}#inicio`}
           aria-label={t.home}
           onClick={close}
-          className="shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-500"
+          className="shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-violet-500 lg:-ml-[1.375rem]"
         >
           <BrandLogo size="lg" />
         </a>
