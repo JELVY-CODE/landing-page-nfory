@@ -131,6 +131,18 @@ export default function DevelopersTransition({ children, view, labels, modules }
 
   useEffect(() => () => void (document.documentElement.style.overflow = ""), []);
 
+  // La barra de scroll propia del panel estrecha su área; se compensa a la izquierda para centrar el contenido
+  // en el mismo ancho que la landing y que el nodo 00 caiga sobre la línea de nodos y el logo.
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    const measure = () => panel.style.setProperty("--panel-scrollbar", `${panel.offsetWidth - panel.clientWidth}px`);
+    const observer = new ResizeObserver(measure);
+    observer.observe(panel);
+    measure();
+    return () => observer.disconnect();
+  }, []);
+
   // Los enlaces #sección se resuelven contra el elemento visible: el navegador saltaría al primero del
   // documento, que puede pertenecer a una página de otro idioma que Next.js mantiene oculta.
   useEffect(() => {
@@ -179,7 +191,7 @@ export default function DevelopersTransition({ children, view, labels, modules }
         aria-modal="true"
         aria-labelledby="developers-title"
         inert={!open}
-        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain px-4 pt-[4.5rem] sm:px-6"
+        className="fixed inset-0 z-40 overflow-y-auto overscroll-contain pt-[4.5rem] pr-4 pl-[calc(1rem+var(--panel-scrollbar,0px))] sm:pr-6 sm:pl-[calc(1.5rem+var(--panel-scrollbar,0px))]"
         style={{ transform: "translate3d(100%, 0, 0)", visibility: "hidden" }}
       >
         <div className="mx-auto max-w-6xl pt-10 pb-8 lg:pl-20">

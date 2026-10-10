@@ -15,6 +15,9 @@ html {
   font-size: clamp(16px, calc(4px + 0.79vw), 24px);
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
+  /* Reserva el hueco de la barra aunque se oculte (vista de Desarrolladores): el header no se desplaza
+     y el logo sigue alineado con la línea de nodos y con el nodo 00. */
+  scrollbar-gutter: stable;
 }
 
 /* Ancla de cada sección del recorrido: deja el nodo completo bajo el header, con parte de la línea visible. */
