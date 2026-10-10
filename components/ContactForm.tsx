@@ -1,14 +1,16 @@
 'use client';
 
-import { useActionState, useState, type ReactNode } from "react";
+import { useActionState, useEffect, useRef, useState, type ReactNode } from "react";
 import { submitContact } from "@/app/actions/contact";
 import DateField from "@/components/DateField";
 import SelectField from "@/components/SelectField";
+import TurnstileWidget from "@/components/TurnstileWidget";
 import { CONTACT_SERVICES, CONTACT_SLOTS } from "@/data/contact";
 import { initialContactState, type ContactField } from "@/lib/contact";
 import type { Locale } from "@/lib/i18n/config";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import { site } from "@/data/site";
+import { turnstileSiteKey } from "@/lib/turnstile";
 
 const control =
   "w-full rounded-xl border border-white/10 bg-zinc-950/60 px-4 text-[0.9375rem] text-white placeholder:text-zinc-600 " +
@@ -47,6 +49,11 @@ export default function ContactForm({ locale, t }: { locale: Locale; t: Dictiona
   const [state, formAction, pending] = useActionState(submitContact, initialContactState);
 
   const [service, setService] = useState(state.values?.service ?? "");
+  const startedAtRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (startedAtRef.current) startedAtRef.current.value = String(Date.now());
+  }, [state]);
   const errors = state.errors ?? {};
   const fieldProps = (id: ContactField) => ({
     id,
@@ -73,6 +80,7 @@ export default function ContactForm({ locale, t }: { locale: Locale; t: Dictiona
   return (
     <form action={formAction} noValidate className="grid gap-5 sm:grid-cols-2">
       <input type="hidden" name="locale" value={locale} />
+      <input ref={startedAtRef} type="hidden" name="startedAt" defaultValue="" />
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label htmlFor="website">{t.honeypot}</label>
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
@@ -146,6 +154,8 @@ export default function ContactForm({ locale, t }: { locale: Locale; t: Dictiona
           className={`${control} resize-y py-3 leading-relaxed`}
         />
       </Field>
+
+      {turnstileSiteKey && <TurnstileWidget siteKey={turnstileSiteKey} locale={locale} resetKey={state} />}
 
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
         <p aria-live="polite" className={`text-sm ${state.status === "error" ? "text-red-300" : "text-zinc-500"}`}>

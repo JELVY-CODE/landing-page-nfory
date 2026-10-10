@@ -37,7 +37,22 @@ const choose = (choice: Choice) => {
   window.dispatchEvent(new Event(EVENT));
 };
 
-export default function CookieConsent({ t }: { t: Dictionary["consent"] }) {
+export function CookieSettingsButton({ label, className }: { label: string; className?: string }) {
+  const reopen = () => {
+    memory = null;
+    try {
+      localStorage.removeItem(KEY);
+    } catch {}
+    window.dispatchEvent(new Event(EVENT));
+  };
+  return (
+    <button type="button" onClick={reopen} className={className}>
+      {label}
+    </button>
+  );
+}
+
+export default function CookieConsent({ t, privacyHref }: { t: Dictionary["consent"]; privacyHref: string }) {
   const choice = useSyncExternalStore(subscribe, read, () => "pending" as const);
   if (choice !== null) return null;
 
@@ -50,7 +65,12 @@ export default function CookieConsent({ t }: { t: Dictionary["consent"] }) {
         "shadow-2xl shadow-black/50 backdrop-blur-xl sm:inset-x-auto sm:right-6 sm:bottom-6"
       }
     >
-      <p className="text-sm leading-relaxed text-zinc-300">{t.message}</p>
+      <p className="text-sm leading-relaxed text-zinc-300">
+        {t.message}{" "}
+        <a href={privacyHref} className="text-indigo-300 underline underline-offset-4 hover:text-indigo-200">
+          {t.privacy}
+        </a>
+      </p>
       <div className="mt-4 flex justify-end gap-2">
         <button
           type="button"

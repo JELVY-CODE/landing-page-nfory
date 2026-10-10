@@ -1,4 +1,6 @@
+import { analyticsEnabled } from "@/components/Analytics";
 import BrandLogo from "@/components/BrandLogo";
+import { CookieSettingsButton } from "@/components/CookieConsent";
 import SocialLinks from "@/components/SocialLinks";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/config";
@@ -36,9 +38,15 @@ export default function Footer({ locale, t, basePath = "" }: FooterProps) {
           </ul>
         </div>
         <div className="mt-6 flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-          <p className="text-sm text-zinc-500">
-            © <CopyrightYear /> {site.name}. {t.footer.rights}
-          </p>
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-1">
+            <p className="text-sm text-zinc-500 sm:mr-2">
+              © <CopyrightYear /> {site.name}. {t.footer.rights}
+            </p>
+            <a href={`/${locale}/privacidad`} className={linkClass}>
+              {t.footer.privacy}
+            </a>
+            {analyticsEnabled && <CookieSettingsButton label={t.footer.cookies} className={`${linkClass} cursor-pointer`} />}
+          </div>
           <SocialLinks label={t.footer.follow} />
         </div>
       </div>

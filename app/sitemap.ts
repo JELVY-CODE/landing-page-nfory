@@ -10,10 +10,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "x-default": `${origin}/${DEFAULT_LOCALE}`,
   };
 
-  return LOCALES.map((locale) => ({
-    url: `${origin}/${locale}`,
-    changeFrequency: "monthly",
-    priority: locale === DEFAULT_LOCALE ? 1 : 0.8,
-    alternates: { languages },
-  }));
+  const privacyLanguages = Object.fromEntries(Object.entries(languages).map(([key, url]) => [key, `${url}/privacidad`]));
+
+  return [
+    ...LOCALES.map((locale) => ({
+      url: `${origin}/${locale}`,
+      changeFrequency: "monthly" as const,
+      priority: locale === DEFAULT_LOCALE ? 1 : 0.8,
+      alternates: { languages },
+    })),
+    ...LOCALES.map((locale) => ({
+      url: `${origin}/${locale}/privacidad`,
+      changeFrequency: "yearly" as const,
+      priority: 0.3,
+      alternates: { languages: privacyLanguages },
+    })),
+  ];
 }

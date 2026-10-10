@@ -32,6 +32,8 @@ Copia `.env.example` a `.env.local` y completa los valores:
 | `CONTACT_TO_EMAIL` | Destinatario de las solicitudes (por defecto `contact@nfory.com`). |
 | `CONTACT_FROM_EMAIL` | Remitente. Requiere un dominio verificado en Resend (p. ej. `NFory <web@nfory.com>`). |
 | `NEXT_PUBLIC_GA_ID` | ID de medición de Google Analytics 4 (`G-XXXXXXXXXX`). Activa Analytics con Consent Mode v2 y el aviso de cookies. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Clave pública de Cloudflare Turnstile para el formulario. |
+| `TURNSTILE_SECRET_KEY` | Clave secreta de Turnstile. Con ambas claves se verifica cada envío y se manda un correo de confirmación al visitante. |
 
 ## Estructura
 

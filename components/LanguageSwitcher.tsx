@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LOCALES, LOCALE_COOKIE, LOCALE_NAMES, type Locale } from "@/lib/i18n/config";
 import { visibleAll, visibleById, visibleOne } from "@/lib/dom";
@@ -86,6 +86,9 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
   const rootRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
+  const pathname = usePathname();
+  const subpath = pathname.split("/").slice(2).join("/");
+  const localePath = (code: Locale) => `/${code}${subpath ? `/${subpath}` : ""}`;
 
   useEffect(restoreReading, [locale]);
 
@@ -135,14 +138,14 @@ export default function LanguageSwitcher({ locale, label }: { locale: Locale; la
             <li key={code} role="none">
               <a
                 role="menuitem"
-                href={`/${code}`}
+                href={localePath(code)}
                 onClick={(event) => {
                   event.preventDefault();
                   setOpen(false);
                   if (code === locale) return;
                   saveReading(code);
                   const hash = window.location.hash === "#desarrolladores" ? window.location.hash : "";
-                  const navigate = () => router.push(`/${code}${window.location.search}${hash}`, { scroll: false });
+                  const navigate = () => router.push(`${localePath(code)}${window.location.search}${hash}`, { scroll: false });
                   const root = document.documentElement;
                   if (!document.startViewTransition || document.hidden || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
                     root.dataset.localeSwitching = "fade";

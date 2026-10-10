@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import Analytics, { analyticsEnabled } from "@/components/Analytics";
 import CookieConsent from "@/components/CookieConsent";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { LOCALES, OG_LOCALES, hasLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionaries";
 import "../globals.css";
@@ -74,8 +75,9 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
     >
       <body className="min-h-full bg-zinc-950 font-sans text-zinc-50">
         {children}
-        {analyticsEnabled && <CookieConsent t={getDictionary(lang).consent} />}
+        {analyticsEnabled && <CookieConsent t={getDictionary(lang).consent} privacyHref={`/${lang}/privacidad`} />}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
