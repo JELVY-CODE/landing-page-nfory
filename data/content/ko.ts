@@ -206,7 +206,6 @@ const ko: Dictionary = {
       summary: "요청 내용",
       service: "서비스",
       schedule: "희망 일정",
-      message: "메시지",
       closing: "추가하실 내용이 있으면 이 메일에 회신해 주세요.",
       signature: "NFory 팀 드림",
     },

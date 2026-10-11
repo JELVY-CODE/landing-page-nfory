@@ -205,7 +205,6 @@ const zh: Dictionary = {
       summary: "您的咨询摘要",
       service: "服务",
       schedule: "期望时间",
-      message: "留言",
       closing: "如需补充信息，直接回复此邮件即可。",
       signature: "NFory 团队",
     },

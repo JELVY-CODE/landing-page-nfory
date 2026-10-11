@@ -206,7 +206,6 @@ const en: Dictionary = {
       summary: "Your request",
       service: "Service",
       schedule: "Preferred time",
-      message: "Message",
       closing: "If you'd like to add anything, just reply to this email.",
       signature: "The NFory team",
     },

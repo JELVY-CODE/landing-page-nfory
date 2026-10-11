@@ -11,6 +11,10 @@ import { turnstileEnabled, verifyTurnstile } from "@/lib/turnstile";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const CONTROL_RE = /[\u0000-\u001f\u007f]/;
+const LINK_RE = /[<>]|:\/\/|www\.|\.(com|net|org|io|ru|xyz|top|info|biz|link|click)\b/i;
+const MAX_DAYS_AHEAD = 365;
+const REQUEST_TIMEOUT_MS = 10_000;
 const DEFAULT_TO = "contact@nfory.com";
 const DEFAULT_FROM = "NFory Web <onboarding@resend.dev>";
 const MIN_FILL_MS = 3000;
@@ -36,6 +40,7 @@ type Email = { to: string; subject: string; html: string; text: string; replyTo:
 async function sendEmail(apiKey: string, email: Email) {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: process.env.CONTACT_FROM_EMAIL || DEFAULT_FROM,
@@ -83,14 +88,12 @@ function confirmationEmail(values: ContactValues, locale: Locale): Email {
           )
           .join("")}
       </table>
-      <h3 style="margin:20px 0 8px;font-size:14px;color:#71717a;font-weight:500">${escapeHtml(t.message)}</h3>
-      <p style="margin:0;font-size:14px;line-height:1.6;white-space:pre-wrap;color:#3f3f46">${escapeHtml(values.message)}</p>
       <p style="margin:24px 0 4px;font-size:14px;line-height:1.6">${escapeHtml(t.closing)}</p>
       <p style="margin:0;font-size:14px;font-weight:600">${escapeHtml(t.signature)}</p>
       <p style="margin:24px 0 0;font-size:12px;color:#a1a1aa">${site.domain}</p>
     </div>`;
 
-  const text = [greeting, "", t.body, "", `${t.summary}:`, ...rows.map(([label, value]) => `${label}: ${value}`), "", `${t.message}:`, values.message, "", t.closing, t.signature].join("\n");
+  const text = [greeting, "", t.body, "", `${t.summary}:`, ...rows.map(([label, value]) => `${label}: ${value}`), "", t.closing, t.signature].join("\n");
 
   return { to: values.email, replyTo: process.env.CONTACT_TO_EMAIL || DEFAULT_TO, subject: t.subject, html, text };
 }
@@ -98,21 +101,25 @@ function confirmationEmail(values: ContactValues, locale: Locale): Email {
 function validate(values: ContactValues, t: Dictionary["contact"]["errors"]) {
   const errors: Partial<Record<ContactField, string>> = {};
 
-  if (values.name.length < 2) errors.name = t.name;
+  if (values.name.length < 2 || CONTROL_RE.test(values.name) || LINK_RE.test(values.name)) errors.name = t.name;
   else if (values.name.length > 100) errors.name = t.nameLong;
 
-  if (!EMAIL_RE.test(values.email) || values.email.length > 200) errors.email = t.email;
+  if (!EMAIL_RE.test(values.email) || values.email.length > 200 || CONTROL_RE.test(values.email)) errors.email = t.email;
 
-  if (values.company.length > 120) errors.company = t.company;
+  if (values.company.length > 120 || CONTROL_RE.test(values.company)) errors.company = t.company;
 
   if (!includes(CONTACT_SERVICES, values.service)) errors.service = t.service;
-  else if (values.service === "other" && (values.serviceOther.length < 2 || values.serviceOther.length > 120)) {
+  else if (
+    values.service === "other" &&
+    (values.serviceOther.length < 2 || values.serviceOther.length > 120 || CONTROL_RE.test(values.serviceOther) || LINK_RE.test(values.serviceOther))
+  ) {
     errors.serviceOther = t.serviceOther;
   }
 
   if (values.date) {
     const yesterday = new Date(Date.now() - 86_400_000).toISOString().slice(0, 10);
-    if (!DATE_RE.test(values.date) || Number.isNaN(Date.parse(values.date))) errors.date = t.date;
+    const latest = new Date(Date.now() + MAX_DAYS_AHEAD * 86_400_000).toISOString().slice(0, 10);
+    if (!DATE_RE.test(values.date) || Number.isNaN(Date.parse(values.date)) || values.date > latest) errors.date = t.date;
     else if (values.date < yesterday) errors.date = t.datePast;
   }
 

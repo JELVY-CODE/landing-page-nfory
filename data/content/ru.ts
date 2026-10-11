@@ -206,7 +206,6 @@ const ru: Dictionary = {
       summary: "Ваш запрос",
       service: "Услуга",
       schedule: "Предпочтительное время",
-      message: "Сообщение",
       closing: "Если хотите что-то добавить, просто ответьте на это письмо.",
       signature: "Команда NFory",
     },

@@ -206,7 +206,6 @@ const ja: Dictionary = {
       summary: "お問い合わせ内容",
       service: "サービス",
       schedule: "希望日時",
-      message: "メッセージ",
       closing: "追加のご連絡がある場合は、このメールにご返信ください。",
       signature: "NFory チーム",
     },

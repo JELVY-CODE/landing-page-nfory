@@ -204,7 +204,6 @@ const es = {
       summary: "Resumen de tu solicitud",
       service: "Servicio",
       schedule: "Preferencia de cita",
-      message: "Mensaje",
       closing: "Si quieres añadir algo, responde a este correo.",
       signature: "El equipo de NFory",
     },

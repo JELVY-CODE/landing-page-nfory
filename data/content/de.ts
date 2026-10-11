@@ -206,7 +206,6 @@ const de: Dictionary = {
       summary: "Ihre Anfrage",
       service: "Leistung",
       schedule: "Wunschtermin",
-      message: "Nachricht",
       closing: "Wenn Sie etwas ergänzen möchten, antworten Sie einfach auf diese E-Mail.",
       signature: "Ihr NFory-Team",
     },
