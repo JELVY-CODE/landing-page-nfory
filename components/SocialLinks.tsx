@@ -18,25 +18,38 @@ export const SOCIAL_ICONS = {
 export default function SocialLinks({ label }: { label: string }) {
   return (
     <ul aria-label={label} className="flex items-center gap-1">
-      {site.social.map((network) => (
-        <li key={network.id}>
-          <a
-            href={network.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`NFory · ${network.name}`}
-            className={
-              "flex size-9 items-center justify-center rounded-full text-zinc-500 " +
-              "transition-[color,background-color,scale] duration-150 ease-out-strong hover:bg-white/[0.06] hover:text-white active:scale-[0.94] " +
-              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
-            }
-          >
-            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px]" fill="currentColor">
-              {SOCIAL_ICONS[network.id]}
-            </svg>
-          </a>
-        </li>
-      ))}
+      {site.social.map((network) => {
+        const icon = (
+          <svg aria-hidden="true" viewBox="0 0 24 24" className="size-[18px]" fill="currentColor">
+            {SOCIAL_ICONS[network.id]}
+          </svg>
+        );
+        const href: string | null = network.href;
+
+        return (
+          <li key={network.id}>
+            {href ? (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`NFory · ${network.name}`}
+                className={
+                  "flex size-9 items-center justify-center rounded-full text-zinc-500 " +
+                  "transition-[color,background-color,scale] duration-150 ease-out-strong hover:bg-white/[0.06] hover:text-white active:scale-[0.94] " +
+                  "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+                }
+              >
+                {icon}
+              </a>
+            ) : (
+              <span aria-hidden="true" className="flex size-9 cursor-default items-center justify-center rounded-full text-zinc-700">
+                {icon}
+              </span>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

@@ -11,9 +11,9 @@ export const site = {
     { key: "contact", href: "#contacto", page: false },
   ],
   social: [
-    { id: "linkedin", name: "LinkedIn", href: "https://www.linkedin.com/company/nfory" },
-    { id: "facebook", name: "Facebook", href: "https://www.facebook.com/nfory" },
-    { id: "github", name: "GitHub", href: "https://github.com/nfory" },
-    { id: "instagram", name: "Instagram", href: "https://www.instagram.com/nfory" },
+    { id: "linkedin", name: "LinkedIn", href: null },
+    { id: "facebook", name: "Facebook", href: null },
+    { id: "github", name: "GitHub", href: null },
+    { id: "instagram", name: "Instagram", href: null },
   ],
 } as const;
