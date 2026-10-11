@@ -2,10 +2,9 @@ import type { Dictionary } from "@/data/content/es";
 
 const ja: Dictionary = {
   meta: {
-    title: "NFory | AIエンジニアリング & プロセス自動化",
-    description:
-      "NFory は、AI エージェント、カスタムシステム、プロセスオーケストレーションを設計・統合し、企業のオペレーションをつなぐコンサルティング会社です。",
-    ogDescription: "AI エンジニアリングとプロセス自動化のコンサルティング：自社 SaaS と B2B コンサルティング。",
+    title: "NFory",
+    description: "AIエンジニアリング & プロセス自動化",
+    ogDescription: "AIエンジニアリング & プロセス自動化",
   },
   nav: {
     primary: "メインメニュー",

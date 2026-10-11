@@ -2,9 +2,9 @@ import type { Dictionary } from "@/data/content/es";
 
 const zh: Dictionary = {
   meta: {
-    title: "NFory | AI 工程与流程自动化",
-    description: "NFory 是一家咨询公司，设计并集成 AI 智能体、定制系统与流程编排，连接企业的各项运营。",
-    ogDescription: "AI 工程与流程自动化咨询：自有 SaaS 与 B2B 咨询服务。",
+    title: "NFory",
+    description: "AI 工程与流程自动化",
+    ogDescription: "AI 工程与流程自动化",
   },
   nav: {
     primary: "主导航",

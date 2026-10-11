@@ -2,10 +2,9 @@ import type { Dictionary } from "@/data/content/es";
 
 const en: Dictionary = {
   meta: {
-    title: "NFory | AI Engineering & Process Automation",
-    description:
-      "NFory is a consultancy that designs and integrates AI agents, custom systems and process orchestration to connect your company's operations.",
-    ogDescription: "AI engineering and process automation consultancy: proprietary SaaS and B2B consulting.",
+    title: "NFory",
+    description: "AI Engineering & Process Automation",
+    ogDescription: "AI Engineering & Process Automation",
   },
   nav: {
     primary: "Main",

@@ -2,10 +2,9 @@ import type { Dictionary } from "@/data/content/es";
 
 const de: Dictionary = {
   meta: {
-    title: "NFory | KI-Engineering & Prozessautomatisierung",
-    description:
-      "NFory ist eine Beratung für KI-Agenten, maßgeschneiderte Systeme und Prozessorchestrierung – wir verbinden die Abläufe Ihres Unternehmens.",
-    ogDescription: "Beratung für KI-Engineering und Prozessautomatisierung: eigene SaaS-Plattform und B2B-Beratung.",
+    title: "NFory",
+    description: "KI-Engineering & Prozessautomatisierung",
+    ogDescription: "KI-Engineering & Prozessautomatisierung",
   },
   nav: {
     primary: "Hauptnavigation",

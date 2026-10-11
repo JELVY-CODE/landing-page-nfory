@@ -1,9 +1,8 @@
 const es = {
   meta: {
-    title: "NFory | Ingeniería de IA & Automatización de Procesos",
-    description:
-      "NFory es una consultora que diseña e integra agentes de IA, sistemas a medida y orquestación de procesos para conectar la operación de tu empresa.",
-    ogDescription: "Consultora de ingeniería de IA y automatización de procesos: SaaS propietario y consultoría B2B.",
+    title: "NFory",
+    description: "Ingeniería de IA & Automatización de Procesos",
+    ogDescription: "Ingeniería de IA & Automatización de Procesos",
   },
   nav: {
     primary: "Principal",
