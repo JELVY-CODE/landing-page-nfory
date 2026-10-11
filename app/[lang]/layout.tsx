@@ -39,9 +39,14 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       languages: { ...Object.fromEntries(LOCALES.map((locale) => [locale, `/${locale}`])), "x-default": `/${DEFAULT_LOCALE}` },
     },
     icons: {
-      icon: { url: "/images/favicon-nfory.svg?v=7", type: "image/svg+xml" },
-      apple: "/images/isotipo-nfory.svg",
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/images/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/images/favicon-nfory.svg?v=7", type: "image/svg+xml" },
+      ],
+      apple: { url: "/images/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     },
+    manifest: "/manifest.webmanifest",
     openGraph: {
       title: meta.title,
       description: meta.ogDescription,

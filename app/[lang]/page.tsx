@@ -29,7 +29,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         "@id": `${origin}/#organization`,
         name: site.name,
         url: origin,
-        logo: `${origin}/images/isotipo-nfory.svg`,
+        logo: `${origin}/images/icon-512.png`,
         email: site.contactEmail,
         description: dict.meta.description,
       },
